@@ -32,12 +32,12 @@ export default async function HomePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-12 lg:gap-8">
             <div className="sm:text-center md:mx-auto md:max-w-2xl lg:col-span-6 lg:text-left">
-              <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
+              <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
                 Master Your Future with{" "}
-                <span className="text-blue-600">Premium Books</span> &{" "}
+                <span className="text-orange-600 ">Premium Books</span> &{" "}
                 <span className="text-indigo-600">Expert Courses</span>
               </h1>
-              <p className="mt-6 text-lg leading-8 text-gray-600">
+              <p className="mt-6  text-[12px] md:text-lg leading-8 text-gray-600">
                 Unlock your potential with our curated collection of industry-leading resources.
                 Whether you're looking for deep-dive technical books or interactive video courses,
                 DKC Books has everything you need to excel.
@@ -54,17 +54,18 @@ export default async function HomePage() {
                 </Link>
                 <Link
                   href="/auth/register"
-                  className="inline-flex items-center justify-center rounded-full bg-white hover:bg-orange-400
+                  className="inline-flex items-center justify-center rounded-full md:bg-white bg-amber-500 hover:bg-orange-400
                    px-8 py-4 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-orange-300
                      transition-all active:scale-95"
                 >
                   Join for Free
                 </Link>
               </div>
-              <div className="mt-10 flex items-center justify-center lg:justify-start gap-8 opacity-60 grayscale">
+              <div className="mt-10 flex items-center justify-center lg:justify-start gap-8 ">
                
-                <div className="flex items-center gap-2 font-semibold text-2xl ">
-                  <Zap className="h-5 w-5" /> Instant Access
+                <div className="flex items-center gap-2 font-semibold text-2xl text-orange-700 ">
+                  <Zap className="h-5 w-5" /> 
+                  Instant Access
                 </div>
               </div>
             </div>
@@ -91,7 +92,7 @@ export default async function HomePage() {
             <div className="h-14 w-14 rounded-xl bg-blue-100 flex items-center justify-center mb-6">
               <BookOpen className="h-7 w-7 text-blue-600" />
             </div>
-            <h3 className="text-xl text-slate-900 font-bold mb-3">Premium Books</h3>
+            <h3 className="text-xl text-slate-900 font-bold mb-3 ">Premium Books</h3>
             <p className="text-zinc-800 leading-relaxed">
               Curated technical and business books from industry leaders with lifelong access.
             </p>
@@ -155,7 +156,7 @@ export default async function HomePage() {
       </section>
 
 
-       <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center px-4"><p>Testimonials</p>  <TestimonialCarousel /> </div> 
+       <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center px-10"><div className=" flex justify-center items-center">Testimonials</div>  <TestimonialCarousel /> </div> 
 
       {/* Call to action Section */}
       <section className="container mx-auto px-4">
