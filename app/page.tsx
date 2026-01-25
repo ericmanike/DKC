@@ -1,65 +1,182 @@
-import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, BookOpen, GraduationCap, ShieldCheck, Zap } from "lucide-react";
+import connectToDatabase from "@/lib/db";
+import Product from "@/models/Product";
+import { ProductCard } from "@/components/ui/ProductCard";
+import TestimonialCarousel from "@/components/ui/testimonials";
 
-export default function Home() {
+
+async function getFeaturedProducts() {
+  try {
+    await connectToDatabase();
+    // Fetch 3 most recent products
+    const products = await Product.find({ isPublished: true })
+      .sort({ createdAt: -1 })
+      .limit(3)
+      .lean();
+    return JSON.parse(JSON.stringify(products));
+  } catch (error) {
+    console.error("Error fetching featured products:", error);
+    return [];
+  }
+}
+
+export default async function HomePage() {
+  const featuredProducts = await getFeaturedProducts();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="flex flex-col gap-20 pb-20 bg-gray-300">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-white pt-16 pb-24 lg:pt-32 lg:pb-40">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,var(--colors-blue-50),white)]" />
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="lg:grid lg:grid-cols-12 lg:gap-8">
+            <div className="sm:text-center md:mx-auto md:max-w-2xl lg:col-span-6 lg:text-left">
+              <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
+                Master Your Future with{" "}
+                <span className="text-blue-600">Premium Books</span> &{" "}
+                <span className="text-indigo-600">Expert Courses</span>
+              </h1>
+              <p className="mt-6 text-lg leading-8 text-gray-600">
+                Unlock your potential with our curated collection of industry-leading resources.
+                Whether you're looking for deep-dive technical books or interactive video courses,
+                DKC Books has everything you need to excel.
+              </p>
+              <div className="mt-10 flex flex-col sm:flex-row sm:justify-center lg:justify-start gap-4">
+                <Link
+                  href="/shop"
+                  className="inline-flex items-center justify-center rounded-full
+                   bg-blue-600 px-8 py-4 text-sm font-semibold text-white shadow-lg hover:bg-blue-500
+                    transition-all active:scale-95"
+                >
+                  Browse Shop
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+                <Link
+                  href="/auth/register"
+                  className="inline-flex items-center justify-center rounded-full bg-white hover:bg-orange-400
+                   px-8 py-4 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-orange-300
+                     transition-all active:scale-95"
+                >
+                  Join for Free
+                </Link>
+              </div>
+              <div className="mt-10 flex items-center justify-center lg:justify-start gap-8 opacity-60 grayscale">
+               
+                <div className="flex items-center gap-2 font-semibold text-2xl ">
+                  <Zap className="h-5 w-5" /> Instant Access
+                </div>
+              </div>
+            </div>
+            <div className="relative mt-12 sm:mx-auto sm:max-w-lg lg:col-span-6 lg:mx-0 lg:mt-0 lg:flex lg:items-center">
+              <div className="relative mx-auto w-full rounded-2xl bg-white p-2 shadow-2xl ring-1 ring-gray-200">
+                <img
+                  src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                  alt="Platform Preview"
+                  className="rounded-xl w-full h-auto object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+       
+
+      {/* Features Grid */}
+      <section className="container  mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+          <div className="flex flex-col items-center p-6 rounded-2xl bg-white border 
+          border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+            <div className="h-14 w-14 rounded-xl bg-blue-100 flex items-center justify-center mb-6">
+              <BookOpen className="h-7 w-7 text-blue-600" />
+            </div>
+            <h3 className="text-xl text-slate-900 font-bold mb-3">Premium Books</h3>
+            <p className="text-zinc-800 leading-relaxed">
+              Curated technical and business books from industry leaders with lifelong access.
+            </p>
+          </div>
+          <div className="flex flex-col items-center p-6 rounded-2xl bg-white border
+           border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+            <div className="h-14 w-14 rounded-xl bg-indigo-100 flex items-center justify-center mb-6">
+              <GraduationCap className="h-7 w-7 text-indigo-600" />
+            </div>
+            <h3 className="text-xl text-slate-900 font-bold mb-3">Expert Courses</h3>
+            <p className="text-zinc-800 leading-relaxed">
+              Structured video courses with hands-on projects designed to build real-world skills.
+            </p>
+          </div>
+          <div className="flex flex-col items-center p-6 rounded-2xl bg-white border
+           border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+            <div className="h-14 w-14 rounded-xl bg-green-100 flex items-center justify-center mb-6">
+              <Zap className="h-7 w-7 text-green-600" />
+            </div>
+            <h3 className="text-xl text-slate-900 font-bold mb-3">Instant Delivery</h3>
+            <p className="text-zinc-800 leading-relaxed">
+              Get immediate access to your digital files and course content right after purchase.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Products */}
+      <section className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+          <div>
+            <h2 className="text-3xl font-bold text-gray-900 tracking-tight">Featured Collections</h2>
+            <p className="text-gray-600 mt-2">Explore our most popular books and courses.</p>
+          </div>
+          <Link href="/shop" className="text-blue-600 font-bold hover:text-blue-700 flex items-center">
+            View All Products <ArrowRight className="ml-1 h-4 w-4" />
+          </Link>
+        </div>
+
+        {featuredProducts.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredProducts.map((product: any) => (
+              <ProductCard
+                key={product._id}
+                id={product._id}
+                title={product.title}
+                description={product.description}
+                price={product.price}
+                imageUrl={product.imageUrl}
+                category={product.category}
+                productType={product.productType}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
+            <p className="text-gray-500">New arrivals coming soon!</p>
+            <Link href="/shop" className="mt-4 inline-block text-blue-600 font-medium">Explore Shop</Link>
+          </div>
+        )}
+      </section>
+
+
+       <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center px-4"><p>Testimonials</p>  <TestimonialCarousel /> </div> 
+
+      {/* Call to action Section */}
+      <section className="container mx-auto px-4">
+        <div className="bg-linear-to-r from-orange-500 to-orange-600 rounded-3xl p-12 text-center text-white relative overflow-hidden">
+          <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+          <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 h-64 w-64 rounded-full bg-indigo-500/20 blur-3xl" />
+
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 relative z-10">Start Your Learning Journey Today</h2>
+          <p className="text-blue-100 mb-10 max-w-2xl mx-auto text-lg relative z-10">
+            Join thousands of learners worldwide and get access to high-quality educational content.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/auth/register"
+            className="inline-flex items-center justify-center rounded-full bg-white 
+            px-10 py-4 text-sm font-bold text-blue-600 shadow-xl
+             hover:bg-gray-100 transition-all active:scale-95 relative z-10"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            Get Started Now
+          </Link>
         </div>
-      </main>
+      </section>
     </div>
   );
 }

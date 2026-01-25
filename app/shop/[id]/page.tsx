@@ -1,0 +1,171 @@
+import connectToDatabase from "@/lib/db";
+import Product from "@/models/Product";
+import { formatPrice } from "@/lib/utils";
+import { BadgeCheck, BookOpen, Clock, Globe, GraduationCap, PlayCircle, Share2, ShoppingCart } from "lucide-react";
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import { BuyButton } from "@/components/ui/BuyButton";
+
+interface ProductDetailsPageProps {
+    params: Promise<{ id: string }>;
+}
+
+export default async function ProductDetailsPage({ params }: ProductDetailsPageProps) {
+    const { id } = await params;
+
+    await connectToDatabase();
+
+    const product = await Product.findById(id).lean();
+
+    if (!product) {
+        return notFound();
+    }
+
+    const isCourse = product.productType === "course";
+
+    return (
+        <div className="container mx-auto px-4 py-8 lg:py-16">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+
+                {/* Left Column: Image/Banner & Content */}
+                <div className="lg:col-span-8 space-y-12">
+                    {/* Banner */}
+                    <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl ring-1 ring-gray-200">
+                        <img
+                            src={product.imageUrl}
+                            alt={product.title}
+                            className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent flex flex-col justify-end p-8 text-white">
+                            <div className="flex items-center gap-3 mb-4">
+                                <span className="bg-blue-600/90 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
+                                    {product.productType}
+                                </span>
+                                <span className="bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
+                                    {product.category}
+                                </span>
+                            </div>
+                            <h1 className="text-3xl md:text-5xl font-black">{product.title}</h1>
+                        </div>
+                    </div>
+
+                    {/* Description */}
+                    <div className="bg-white p-8 md:p-10 rounded-3xl shadow-sm border border-gray-100">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-6">About this {product.productType}</h2>
+                        <div className="prose prose-blue max-w-none text-gray-600 leading-relaxed space-y-4">
+                            {product.description.split('\n').map((para: string, i: number) => (
+                                <p key={i}>{para}</p>
+                            ))}
+                        </div>
+
+                        {/* Features/Highlights */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 pt-8 border-t border-gray-50">
+                            <div className="flex gap-4">
+                                <div className="shrink-0 h-10 w-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                                    <BadgeCheck className="h-5 w-5" />
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-gray-900">Expert Instruction</h4>
+                                    <p className="text-sm text-gray-500">Learn from professionals with years of experience.</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-4">
+                                <div className="shrink-0 h-10 w-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                                    <Globe className="h-5 w-5" />
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-gray-900">Lifetime Access</h4>
+                                    <p className="text-sm text-gray-500">Learn at your own pace with unlimited access.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Lessons / Content (Only for Courses) */}
+                    {isCourse && product.lessons && product.lessons.length > 0 && (
+                        <div className="bg-white p-8 md:p-10 rounded-3xl shadow-sm border border-gray-100">
+                            <div className="flex items-center justify-between mb-8">
+                                <h2 className="text-2xl font-bold text-gray-900">Course Curriculum</h2>
+                                <span className="text-sm font-medium text-gray-500">{product.lessons.length} Lessons</span>
+                            </div>
+                            <div className="space-y-4">
+                                {product.lessons.map((lesson: any, index: number) => (
+                                    <div key={index} className="flex items-center justify-between p-4 rounded-xl border border-gray-50 hover:border-blue-100 hover:bg-blue-50/30 transition-all group">
+                                        <div className="flex items-center gap-4">
+                                            <span className="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-500 text-xs font-bold group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                                {index + 1}
+                                            </span>
+                                            <span className="font-semibold text-gray-700">{lesson.title}</span>
+                                        </div>
+                                        <div className="flex items-center gap-4">
+                                            <span className="text-xs text-gray-400 font-medium">{lesson.duration || "5:00"}</span>
+                                            <PlayCircle className="h-5 w-5 text-gray-300 group-hover:text-blue-600 transition-colors" />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Right Column: Pricing & Actions UI */}
+                <aside className="lg:col-span-4 lg:sticky lg:top-24 h-fit">
+                    <div className="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 space-y-8">
+                        <div className="space-y-2">
+                            <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">Full Access Price</p>
+                            <div className="flex items-baseline gap-2">
+                                <span className="text-4xl font-extrabold text-gray-900">{formatPrice(product.price)}</span>
+                                <span className="text-gray-400 line-through text-lg">{formatPrice(product.price * 1.5)}</span>
+                            </div>
+                        </div>
+
+                        <div className="space-y-4">
+                            <BuyButton productId={product._id.toString()} />
+                            <button className="w-full text-center border border-gray-200 py-4 rounded-2xl font-bold text-gray-700 hover:bg-gray-50 transition-all flex items-center justify-center gap-2">
+                                <Share2 className="h-4 w-4" />
+                                Share with friends
+                            </button>
+                        </div>
+
+                        <div className="space-y-4 pt-8 border-t border-gray-50">
+                            <h4 className="font-bold text-gray-900 text-sm italic">This {product.productType} includes:</h4>
+                            <ul className="space-y-3">
+                                <li className="flex items-center gap-3 text-sm text-gray-600">
+                                    <PlayCircle className="h-4 w-4 text-gray-400" />
+                                    <span>Interactive Video Content</span>
+                                </li>
+                                <li className="flex items-center gap-3 text-sm text-gray-600">
+                                    <BookOpen className="h-4 w-4 text-gray-400" />
+                                    <span>Downloadable Resources</span>
+                                </li>
+                                <li className="flex items-center gap-3 text-sm text-gray-600">
+                                    <Clock className="h-4 w-4 text-gray-400" />
+                                    <span>Self-Paced Learning</span>
+                                </li>
+                                <li className="flex items-center gap-3 text-sm text-gray-600">
+                                    <GraduationCap className="h-4 w-4 text-gray-400" />
+                                    <span>Certificate of Completion</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <p className="text-center text-xs text-gray-400 font-medium">
+                            30-Day Money-Back Guarantee
+                        </p>
+                    </div>
+
+                    <div className="mt-8 bg-indigo-50 p-6 rounded-3xl border border-indigo-100 flex items-center gap-4">
+                        <div className="h-12 w-12 rounded-2xl bg-white flex items-center justify-center shadow-sm">
+                            <BadgeCheck className="h-6 w-6 text-indigo-600" />
+                        </div>
+                        <div>
+                            <p className="text-sm font-bold text-indigo-900">Official DKC Course</p>
+                            <p className="text-xs text-indigo-700 opacity-80">Verified educational content</p>
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    );
+}
