@@ -126,7 +126,7 @@ const TestimonialCarousel = () => {
 
   return (
     <div className="py-10 px-3 md:py-30 rounded-2xl flex flex-col items-center justify-center ">
-     <p className=' text-[12px] md:text-3xl font-extrabold  mb-8'>  The value<span className='text-orange-500 mx-2'>Digital Kingdom Chronicles</span>  brings to our students and customers</p>
+     <p className=' text-[12px] md:text-3xl font-extrabold text-center text-black  mb-8'>  The value<span className='text-orange-500 mx-2'>Digital Kingdom Chronicles</span>  brings to our students and customers</p>
      
       <div className="max-w-2xl w-full">
       

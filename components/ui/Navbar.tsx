@@ -41,7 +41,9 @@ export default function Navbar() {
                                 Shop
                             </Link>
                             {session?.user.role === "admin" && (
-                                <Link href="/admin/dashboard" className="relative px-3 py-2 rounded-md text-sm font-medium text-orange-700 hover:bg-red-50 transition-all after:absolute after:bottom-0  after:right-0 after:w-full after:h-0.5 after:bg-orange-500 after:transform after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300   after:ease-out">
+                                <Link href="/admin/dashboard" className="relative px-3 py-2 rounded-md text-sm font-medium text-orange-700 hover:bg-red-50 transition-all after:absolute after:bottom-0  after:right-0 after:w-full after:h-0.5
+                                 after:bg-orange-500 after:transform after:scale-x-0
+                                  hover:after:scale-x-100 after:transition-transform after:duration-300   after:ease-out">
                                     Admin
                                 </Link>
                             )}
@@ -88,9 +90,9 @@ export default function Navbar() {
             </div>
          
     {/* Mobile Menu */}
-          <div onClick={()=> setIsOpen(false)} className={`  fixed inset-0  bg-black/30 bg-opacity-50 z-20 ${isOpen ? "translate-x-0" : "-translate-x-full "} h-screen md:hidden transition-transform duration-300 ease-in-out`}>
+          <div onClick={()=> setIsOpen(false)} className={`  fixed inset-0  bg-black/30 bg-opacity-50 z-20  h-screen md:hidden transition-transform duration-300 ease-in-out`}>
 
-                <div className="bg-white w-64 h-full shadow-lg">  
+                <div className={`bg-white w-64 h-full shadow-lg  "fixed top-0 left-0 z-30 transform ${isOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out`}>  
                     <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                         <Link href="/" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">
                             Home

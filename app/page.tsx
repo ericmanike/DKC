@@ -164,7 +164,9 @@ export default async function HomePage() {
 
        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 justify-center items-center px-10">
         <div className="  rounded h-10 flex justify-center ">   
-          <div className=" border-double border-y-blue-600 border-2 border-x-orange-600  md:py-20 py-10 px-8    md:text-6xl text-2xl  rounded-2xl flex justify-center items-center  w-fit">  <RotatingTextType
+          <div className=" border-double border-y-blue-600 border-2 border-x-orange-600  md:py-20 py-10 px-8   
+          text-black md:text-6xl text-2xl  rounded-2xl flex justify-center items-center  w-fit">
+              <RotatingTextType
         texts={['Resetting minds', 'Creating Wealth ', 'Building Skills', 'Achieving Goals']}
         rotationInterval={10000}
         splitBy="character"
