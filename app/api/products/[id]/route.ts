@@ -1,15 +1,15 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest  } from "next/server";
 import connectToDatabase from "@/lib/db";
 import Product from "@/models/Product";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function GET(
-    req: Request,
-    { params }: { params: { id: string } }
+    req: NextRequest,
+    context: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { id } = await params;
+        const { id } = await context.params;
         await connectToDatabase();
         const product = await Product.findById(id);
 
@@ -24,14 +24,14 @@ export async function GET(
 }
 
 export async function PUT(
-    req: Request,
-    { params }: { params: { id: string } }
+    req: NextRequest,
+    context: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { id } = await params;
-        const session = await getServerSession(authOptions as any);
+        const { id } = await context.params;
+        const session = await getServerSession(authOptions as any) as any;
 
-        if (!session || session.user.role !== "admin") {
+        if (!session || (session.user as any)?.role !== "admin") {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
 
@@ -51,14 +51,14 @@ export async function PUT(
 }
 
 export async function DELETE(
-    req: Request,
-    { params }: { params: { id: string } }
+    req: NextRequest,
+    context: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { id } = await params;
-        const session = await getServerSession(authOptions as any);
+        const { id } = await context.params;
+        const session = await getServerSession(authOptions as any) as any;
 
-        if (!session || session.user.role !== "admin") {
+        if (!session || (session.user as any)?.role !== "admin") {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
 

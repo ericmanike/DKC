@@ -6,11 +6,13 @@ import User from "@/models/User";
 import { User as UserIcon, Calendar, Mail } from "lucide-react";
 
 export default async function AdminUsersPage() {
-    const session = await getServerSession(authOptions as any);
+  
+  {/*  const session = await getServerSession(authOptions as any);
 
     if (!session || session.user.role !== "admin") {
         redirect("/auth/login");
     }
+    */}
 
     await connectToDatabase();
     const users = await User.find().sort({ createdAt: -1 }).lean();

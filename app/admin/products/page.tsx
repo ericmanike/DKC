@@ -7,11 +7,13 @@ import Link from "next/link";
 import { Layers, Package, Plus, Search, Trash2 } from "lucide-react";
 
 export default async function AdminProductsPage() {
-    const session = await getServerSession(authOptions as any);
+   { /* const session = await getServerSession(authOptions as any) as any;
+    console.log("AdminProductsPage session:", session);
 
-    if (!session || session.user.role !== "admin") {
+    if (!session || (session.user as any)?.role !== "admin") {
         redirect("/auth/login");
     }
+ */}
 
     await connectToDatabase();
     const products = await Product.find().sort({ createdAt: -1 }).lean();

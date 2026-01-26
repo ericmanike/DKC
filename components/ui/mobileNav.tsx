@@ -9,7 +9,8 @@ function mobileNav({isOpen}: {isOpen: boolean}) {
 
 
   return (
-   
+   <>
+   </>
   )
 }
 

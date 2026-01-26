@@ -5,10 +5,11 @@ import connectToDatabase from "@/lib/db";
 import Order from "@/models/Order";
 import Product from "@/models/Product";
 import Link from "next/link";
+import { Session } from "next-auth";
 import { Book, GraduationCap, LayoutPanelLeft, PlayCircle } from "lucide-react";
 
 export default async function UserDashboard() {
-    const session = await getServerSession(authOptions as any);
+    const session: Session | null =  await getServerSession(authOptions as any);
 
     if (!session) {
         redirect("/auth/login");
