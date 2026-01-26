@@ -77,10 +77,11 @@ export default async function HomePage() {
             <div className="relative mt-12 sm:mx-auto sm:max-w-lg lg:col-span-6 lg:mx-0 lg:mt-0 lg:flex lg:items-center">
               <div className="relative mx-auto w-full rounded-2xl bg-white p-2 shadow-2xl ring-1 ring-gray-200">
                 <img
-                  src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                  src="/intro1.png"
                   alt="Platform Preview"
                   className="rounded-xl w-full h-auto object-cover"
                 />
+                
               </div>
             </div>
           </div>
@@ -115,7 +116,7 @@ export default async function HomePage() {
           <div className="flex flex-col items-center p-6 rounded-2xl bg-white border
            border-gray-100 shadow-sm hover:shadow-md transition-shadow">
             <div className="h-14 w-14 rounded-xl bg-green-100 flex items-center justify-center mb-6">
-              <Zap className="h-7 w-7 text-green-600" />
+              <Zap className="h-7 w-7 text-orange-600" />
             </div>
             <h3 className="text-xl text-slate-900 font-bold mb-3">Instant Delivery</h3>
             <p className="text-zinc-800 leading-relaxed">
@@ -163,7 +164,7 @@ export default async function HomePage() {
 
        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 justify-center items-center px-10">
         <div className="  rounded h-10 flex justify-center ">   
-          <div className=" border-double border-y-blue-600 border-2 border-x-orange-600  py-20 px-8    md:text-6xl text-2xl  rounded-2xl flex justify-center items-center  w-fit">  <RotatingTextType
+          <div className=" border-double border-y-blue-600 border-2 border-x-orange-600  md:py-20 py-10 px-8    md:text-6xl text-2xl  rounded-2xl flex justify-center items-center  w-fit">  <RotatingTextType
         texts={['Resetting minds', 'Creating Wealth ', 'Building Skills', 'Achieving Goals']}
         rotationInterval={10000}
         splitBy="character"

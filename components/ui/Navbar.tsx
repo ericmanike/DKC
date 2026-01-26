@@ -7,6 +7,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import MobileNav from "./mobileNav";
+import Image from "next/image";
 
 export default function Navbar() {
     const { data: session } = useSession();
@@ -17,12 +18,13 @@ export default function Navbar() {
 
     return (<>
            <div className="bg-blue-600">    </div>
-        <nav className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/5 backdrop-blur-md shadow-lg">
+        <nav className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/10 backdrop-blur-md shadow-lg">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     <div className="flex items-center">
-                        <Link href="/" className="text-1xl font-bold bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                            DKC Books<sub className="text-orange-700">& courses</sub>
+                        <Link href="/" className=" md:text-3xl font-bold bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                           <span className="momo-signature-regular">DKC</span> Books<sub className="text-orange-700 momo-signature-regular">& courses</sub>
+                          {/* <Image src="/ec.jpg" alt="User Avatar" width={100} height={100}  /> */}
                         </Link>
                     </div>
 
@@ -51,7 +53,7 @@ export default function Navbar() {
                             {session ? (
                                 <div className="flex items-center space-x-4">
                                     <Link href="/dashboard" className="rounded-full bg-amber-600 p-3 px-4 flex items-center space-x-1 text-white hover:text-blue-600">
-                                     
+                                   
                                         <span className="text-sm font-medium">{session.user.name?.charAt(0)}</span>
                                     </Link>
                                     <button
@@ -74,7 +76,7 @@ export default function Navbar() {
                         </div>
                     </div>
 
-                    <div className="-mr-2 flex md:hidden">
+                    <div className="-mr-2 flex md:hidden border-blue-500 border-2 rounded-lg">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             className=" z-50 inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
@@ -85,8 +87,8 @@ export default function Navbar() {
                 </div>
             </div>
          
-
-          <div onClick={()=> setIsOpen(false)} className={`  fixed inset-0  bg-black/30 bg-opacity-50 z-20 ${isOpen ? "translate-x-0" : "-translate-x-full hidden"} h-screen md:hidden transition-transform duration-300 ease-in-out`}>
+    {/* Mobile Menu */}
+          <div onClick={()=> setIsOpen(false)} className={`  fixed inset-0  bg-black/30 bg-opacity-50 z-20 ${isOpen ? "translate-x-0" : "-translate-x-full "} h-screen md:hidden transition-transform duration-300 ease-in-out`}>
 
                 <div className="bg-white w-64 h-full shadow-lg">  
                     <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
