@@ -4,6 +4,7 @@ import connectToDatabase from "@/lib/db";
 import Product from "@/models/Product";
 import { ProductCard } from "@/components/ui/ProductCard";
 import TestimonialCarousel from "@/components/ui/testimonials";
+import RotatingText from "@/components/ui/RotatingText";
 
 
 async function getFeaturedProducts() {
@@ -21,8 +22,12 @@ async function getFeaturedProducts() {
   }
 }
 
+ const RotatingTextType:any = RotatingText;
+
 export default async function HomePage() {
   const featuredProducts = await getFeaturedProducts();
+
+ 
 
   return (
     <div className="flex flex-col gap-20 pb-20 bg-gray-300">
@@ -156,7 +161,22 @@ export default async function HomePage() {
       </section>
 
 
-       <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center px-10"><div className=" flex justify-center items-center">Testimonials</div>  <TestimonialCarousel /> </div> 
+       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 justify-center items-center px-10">
+        <div className="  rounded h-10 flex justify-center ">   
+          <div className=" border-double border-y-blue-600 border-2 border-x-orange-600  py-10 px-8    md:text-6xl text-2xl  rounded-2xl flex justify-center items-center  w-fit">  <RotatingTextType
+        texts={['Resetting minds', 'Creating Wealth ', 'Building Skills', 'Achieving Goals']}
+        rotationInterval={10000}
+        splitBy="character"
+        staggerDuration={0.05}
+      
+        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+        initial={{ y: '100%', opacity: 0 }}
+        animate={{ y: '0%', opacity: 1 }}
+        exit={{ y: '100%', opacity: 0 }}
+
+        className="te font-semibold "
+      /> </div> 
+      </div>  <TestimonialCarousel /> </div> 
 
       {/* Call to action Section */}
       <section className="container mx-auto px-4">
