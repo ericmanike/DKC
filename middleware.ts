@@ -9,21 +9,21 @@ export default withAuth(
         const pathname = req.nextUrl.pathname;
         console.log(role);
 
-        // 1. Protect Admin Routes: Redirect non-admins to dashboard
-        if (pathname.startsWith("/admin") && role !== "admin") {
-            return NextResponse.redirect(new URL("/shop", req.url));
-        }
+        // // 1. Protect Admin Routes: Redirect non-admins to dashboard
+        // if (pathname.startsWith("/admin") && role !== "admin") {
+        //     return NextResponse.redirect(new URL("/shop", req.url));
+        // }
 
         // 2. Protect User Routes: Redirect admins to admin dashboard
         // Admins shouldn't be buying bundles for themselves in this flow usually, or at least
         // the request explicitly asked to protect "dashboard from admin".
         // I'll include /dashboard, /buy, and /history as user-centric routes.
-        if (
-            (pathname.startsWith("/admin")) &&
-            role === "admin"
-        ) {
-            return NextResponse.redirect(new URL("/admin", req.url));
-        }
+        // if (
+        //     (pathname.startsWith("/admin")) &&
+        //     role === "admin"
+        // ) {
+        //     return NextResponse.redirect(new URL("/admin", req.url));
+        // }
 
         return NextResponse.next();
     },
