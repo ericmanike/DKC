@@ -1,7 +1,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage -->
   <url>
-    <loc>https://riskwhizdatabundles.com/</loc>
+    <loc>https://dkcbooks.com/</loc>
     <lastmod>2026-01-11T14:00:00Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -11,7 +11,7 @@
 
   <!-- login -->
   <url>
-    <loc>https://riskwhizdatabundles.com/auth/login</loc>
+    <loc>https://dkcbooks.com/auth/login</loc>
     <lastmod>2026-01-11T14:00:00Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -19,7 +19,7 @@
 
   <!--  registration -->
   <url>
-    <loc>https://riskwhizdatabundles.com/auth/register</loc>
+    <loc>https://dkcbooks.com/auth/register</loc>
     <lastmod>2026-01-11T14:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -29,7 +29,7 @@
 
   <!-- Dashboard -->
   <url>
-    <loc>https://riskwhizdatabundles.com/dashboard</loc>
+    <loc>https://dkcbooks.com/dashboard</loc>
     <lastmod>2026-01-11T14:00:00Z</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>

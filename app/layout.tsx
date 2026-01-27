@@ -18,6 +18,38 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "DKC Books - Premium Books & Courses",
   description: "Browse and purchase top-quality books and courses.",
+
+
+   twitter: {
+    card: 'summary_large_image',
+    title: 'Home - DKC Books - Premium Books & Courses',
+    description: 'Browse and purchase top-quality books and courses.',
+    images: ['https://dkcbooks.com/og-image.jpg'],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+    
+
+  },
+
+  alternates: {
+    canonical: 'https://dkcbooks.com/',
+  },
+
+
+
+
+
+
 };
 
 export default function RootLayout({
