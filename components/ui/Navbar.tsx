@@ -6,8 +6,8 @@ import { Menu, X, User } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
-import MobileNav from "./mobileNav";
-import Image from "next/image";
+
+
 
 export default function Navbar() {
     const { data: session } = useSession();
@@ -18,7 +18,7 @@ export default function Navbar() {
 
     return (<>
            <div className="bg-blue-600">    </div>
-        <nav className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/10 backdrop-blur-md shadow-lg">
+        <nav className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/93  shadow-lg">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     <div className="flex items-center">
@@ -90,7 +90,7 @@ export default function Navbar() {
             </div>
          
     {/* Mobile Menu */}
-          <div onClick={()=> setIsOpen(false)} className={`  fixed inset-0  bg-black/30 bg-opacity-50 z-20  h-screen md:hidden transition-transform duration-300 ease-in-out`}>
+          <div onClick={()=> setIsOpen(false)} className={`  fixed inset-0  bg-black/30 bg-opacity-50 z-20  h-screen  ${isOpen ? "block" : "hidden" }  md:hidden transition-transform duration-300 ease-in-out`}>
 
                 <div className={`bg-white w-64 h-full shadow-lg  "fixed top-0 left-0 z-30 transform ${isOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out`}>  
                     <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">

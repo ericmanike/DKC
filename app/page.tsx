@@ -51,7 +51,7 @@ export default async function HomePage() {
                 <Link
                   href="/shop"
                   className="inline-flex items-center justify-center rounded-full
-                   bg-blue-600 px-8 py-4 text-sm font-semibold text-white shadow-lg hover:bg-blue-500
+                   bg-blue-600 px-8 py-4 text-sm font-semibold text-white  hover:bg-blue-500
                     transition-all active:scale-95"
                 >
                   Browse Shop
@@ -60,7 +60,7 @@ export default async function HomePage() {
                 <Link
                   href="/auth/register"
                   className="inline-flex items-center justify-center rounded-full md:bg-white bg-amber-500 hover:bg-orange-400
-                   px-8 py-4 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-orange-300
+                   px-8 py-4 text-sm font-semibold text-gray-900  ring-1 ring-inset ring-orange-300
                      transition-all active:scale-95"
                 >
                   Join for Free
@@ -194,7 +194,7 @@ export default async function HomePage() {
           <Link
             href="/auth/register"
             className="inline-flex items-center justify-center rounded-full bg-white 
-            px-10 py-4 text-sm font-bold text-blue-600 shadow-xl
+            px-10 py-4 text-sm font-bold text-blue-600 
              hover:bg-gray-100 transition-all active:scale-95 relative z-10"
           >
             Get Started Now

@@ -6,6 +6,7 @@ import Product from "@/models/Product";
 import User from "@/models/User";
 import Order from "@/models/Order";
 import Link from "next/link";
+import { formatPrice } from "@/lib/utils";
 import { BookMarked, Layers, Package, ShoppingBag, Users } from "lucide-react";
 
 export default async function AdminDashboard() {
@@ -36,20 +37,20 @@ export default async function AdminDashboard() {
                 </div>
                 <Link
                     href="/admin/products/new"
-                    className="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold
-                     hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-100"
+                    className="  ring-1 ring-orange-500  px-6 py-3 rounded-xl font-bold
+                     hover:bg-orange-300 transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-100"
                 >
-                    <Package className="h-5 w-5" />
+                
                     Add New Product
                 </Link>
             </div>
 
             {/* Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                <StatCard title="Total Revenue" value={`$${stats.totalRevenue}`} icon={<ShoppingBag className="text-emerald-600" />} color="bg-emerald-50" />
-                <StatCard title="All Products" value={stats.products} icon={<Layers className="text-blue-600" />} color="bg-blue-50" />
-                <StatCard title="Total Users" value={stats.users} icon={<Users className="text-indigo-600" />} color="bg-indigo-50" />
-                <StatCard title="Orders" value={stats.orders} icon={<BookMarked className="text-orange-600" />} color="bg-orange-50" />
+                <StatCard title="Total Revenue" value={formatPrice(stats.totalRevenue)}  />
+                <StatCard title="All Products" value={stats.products}  />
+                <StatCard title="Total Users" value={stats.users}   />
+                <StatCard title="Orders" value={stats.orders}   />
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -82,7 +83,7 @@ export default async function AdminDashboard() {
                                         <td className="py-4">
                                             <span className="text-xs font-bold px-2 py-1 rounded bg-gray-100 text-gray-500 uppercase">{p.productType}</span>
                                         </td>
-                                        <td className="py-4 font-semibold">${p.price}</td>
+                                        <td className="py-4 font-semibold">{formatPrice(p.price)}</td>
                                         <td className="py-4">
                                             {p.isPublished ? (
                                                 <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">Published</span>
@@ -104,7 +105,7 @@ export default async function AdminDashboard() {
                 {/* Quick Links */}
                 <div className="lg:col-span-4 space-y-6">
                     <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-                        <h3 className="text-xl font-bold text-gray-900 mb-6 pb-4 border-b">System Insights</h3>
+                        <h3 className="text-xl font-bold text-gray-900 mb-6 pb-4 border-b"> Insights</h3>
                         <div className="space-y-4">
                             <Link href="/admin/users" className="p-4 rounded-2xl bg-gray-50 border border-gray-100 flex
                              items-center justify-between hover:bg-white hover:border-blue-100 transition-all group">
@@ -118,7 +119,7 @@ export default async function AdminDashboard() {
                             </Link>
                             <div className="p-4 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-between">
                                 <span className="text-sm text-gray-600">Avg. Order Value</span>
-                                <span className="font-bold text-gray-900">${(stats.totalRevenue / (stats.orders || 1)).toFixed(2)}</span>
+                                <span className="font-bold text-gray-900">{formatPrice(stats.totalRevenue / (stats.orders || 1))}</span>
                             </div>
                         </div>
                     </div>
