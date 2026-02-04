@@ -22,73 +22,71 @@ async function getFeaturedProducts() {
   }
 }
 
- const RotatingTextType:any = RotatingText;
+const RotatingTextType: any = RotatingText;
 
 export default async function HomePage() {
   const featuredProducts = await getFeaturedProducts();
 
- 
+
 
   return (
     <div className="flex flex-col gap-20 pb-20 bg-gray-300">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-white pt-16 pb-24 lg:pt-32 lg:pb-40">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,var(--colors-blue-50),white)]" />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:grid lg:grid-cols-12 lg:gap-8">
-            <div className="sm:text-center md:mx-auto md:max-w-2xl lg:col-span-6 lg:text-left">
-              <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
-                Master Your Future with{" "}
-                <span className="text-orange-600 ">Premium Books</span> &{" "}
-                <span className="text-indigo-600">Expert Courses</span>
-              </h1>
-              <p className="mt-6  text-[12px] md:text-lg leading-8 text-gray-600">
-                Unlock your potential with our curated collection of industry-leading resources.
-                Whether you're looking for deep-dive technical books or interactive video courses,
-                DKC Books has everything you need to excel.
-              </p>
-              <div className="mt-10 flex flex-col sm:flex-row sm:justify-center lg:justify-start gap-4">
-                <Link
-                  href="/shop"
-                  className="inline-flex items-center justify-center rounded-full
-                   bg-blue-600 px-8 py-4 text-sm font-semibold text-white  hover:bg-blue-500
-                    transition-all active:scale-95"
-                >
-                  Browse Shop
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-                <Link
-                  href="/auth/register"
-                  className="inline-flex items-center justify-center rounded-full md:bg-white bg-amber-500 hover:bg-orange-400
-                   px-8 py-4 text-sm font-semibold text-gray-900  ring-1 ring-inset ring-orange-300
-                     transition-all active:scale-95"
-                >
-                  Join for Free
-                </Link>
-              </div>
-              <div className="mt-10 flex items-center justify-center lg:justify-start gap-8 ">
-               
-                <div className="flex items-center gap-2 font-semibold text-2xl text-orange-700 ">
-                  <Zap className="h-5 w-5" /> 
-                  Instant Access
-                </div>
-              </div>
+      {/* Hero Section */}
+      <section className="relative overflow-hidden w-full min-h-[500px] lg:h-[700px] flex items-center justify-center py-20 lg:py-0">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/intro1.png"
+            alt="Hero Background"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/60 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+        </div>
+
+        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
+            <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl drop-shadow-lg">
+              Master Your Future with{" "}
+              <span className="text-orange-400">Premium Books</span> &{" "}
+              <span className="text-blue-600">Expert Courses</span>
+            </h1>
+
+            <p className="mt-6 text-lg md:text-xl leading-relaxed text-gray-200 max-w-2xl mx-auto drop-shadow-md">
+              Unlock your potential with our curated collection of industry-leading resources.
+              Whether you're looking for deep-dive technical books or interactive video courses,
+              DKC Books has everything you need to excel.
+            </p>
+
+            <div className="flex flex-col sm:flex-row justify-center gap-4 mt-10">
+              <Link
+                href="/shop"
+                className="inline-flex items-center justify-center rounded-full
+                 bg-blue-600 px-8 py-4 text-sm font-bold text-white hover:bg-blue-500
+                  transition-all active:scale-95"
+              >
+                Browse Shop
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+              <Link
+                href="/auth/register"
+                className="inline-flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20
+                 px-8 py-4 text-sm font-bold text-white backdrop-blur-sm ring-1 ring-white/50
+                   transition-all active:scale-95"
+              >
+                Join for Free
+              </Link>
             </div>
-            <div className="relative mt-12 sm:mx-auto sm:max-w-lg lg:col-span-6 lg:mx-0 lg:mt-0 lg:flex lg:items-center">
-              <div className="relative mx-auto w-full rounded-2xl bg-white p-2 shadow-2xl ring-1 ring-gray-200">
-                <img
-                  src="/intro1.png"
-                  alt="Platform Preview"
-                  className="rounded-xl w-full h-auto object-cover"
-                />
-                
-              </div>
+
+            <div className="flex items-center justify-center gap-2 mt-12 font-semibold text-lg text-orange-400 drop-shadow-sm">
+              <Zap className="h-5 w-5 fill-current" />
+              Instant Access to All Resources
             </div>
           </div>
         </div>
       </section>
 
-       
+
 
       {/* Features Grid */}
       <section className="container  mx-auto px-4">
@@ -162,24 +160,24 @@ export default async function HomePage() {
       </section>
 
 
-       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 justify-center items-center px-10">
-        <div className="  rounded h-10 flex justify-center ">   
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 justify-center items-center px-10">
+        <div className="  rounded h-10 flex justify-center ">
           <div className=" border-double border-y-blue-600 border-2 border-x-orange-600  md:py-20 py-10 px-8   
           text-black md:text-6xl text-2xl  rounded-2xl flex justify-center items-center  w-fit">
-              <RotatingTextType
-        texts={['Resetting minds', 'Creating Wealth ', 'Building Skills', 'Achieving Goals']}
-        rotationInterval={10000}
-        splitBy="character"
-        staggerDuration={0.05}
-      
-        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-        initial={{ y: '100%', opacity: 0 }}
-        animate={{ y: '0%', opacity: 1 }}
-        exit={{ y: '100%', opacity: 0 }}
+            <RotatingTextType
+              texts={['Resetting minds', 'Creating Wealth ', 'Building Skills', 'Achieving Goals']}
+              rotationInterval={10000}
+              splitBy="character"
+              staggerDuration={0.05}
 
-        className="te font-semibold "
-      /> </div> 
-      </div>  <TestimonialCarousel /> </div> 
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              initial={{ y: '100%', opacity: 0 }}
+              animate={{ y: '0%', opacity: 1 }}
+              exit={{ y: '100%', opacity: 0 }}
+
+              className="te font-semibold "
+            /> </div>
+        </div>  <TestimonialCarousel /> </div>
 
       {/* Call to action Section */}
       <section className="container mx-auto px-4">

@@ -17,14 +17,13 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (<>
-           <div className="bg-blue-600">    </div>
+        <div className="bg-blue-600">    </div>
         <nav className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/93  shadow-lg">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     <div className="flex items-center">
-                        <Link href="/" className=" md:text-3xl font-bold bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                           <span className="momo-signature-regular">DKC</span> Books<sub className="text-orange-700 momo-signature-regular">& courses</sub>
-                          {/* <Image src="/ec.jpg" alt="User Avatar" width={100} height={100}  /> */}
+                        <Link href="/" className="md:text-3xl font-black text-gray-900 font-outfit tracking-tighter">
+                            DKC BOOKS.
                         </Link>
                     </div>
 
@@ -32,9 +31,9 @@ export default function Navbar() {
                         <div className="ml-10 flex items-baseline space-x-4">
                             <Link href="/" className={cn(" relative px-3 py-2 rounded-md  text-sm font-medium transition-all", pathname === "/" ? "text-blue-600  " : "hover:bg-gray-100 text-gray-700 hover:text-blue-600 after:absolute after:bottom-0  after:right-0 after:w-full after:h-0.5 after:bg-orange-500 after:transform after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300   after:ease-out")}>
                                 Home
-                     <span className="absolute bottom-0 left-0 w-full h-0.5 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
-              aria-hidden="true"
-        ></span>
+                                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
+                                    aria-hidden="true"
+                                ></span>
 
                             </Link>
                             <Link href="/shop" className={cn(" relative px-3 py-2 rounded-md text-sm font-medium transition-all", pathname === "/shop" ? "text-blue-600 " : "text-gray-700 hover:text-blue-600 hover:bg-gray-100  after:absolute after:bottom-0  after:right-0 after:w-full after:h-0.5 after:bg-orange-500 after:transform after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300   after:ease-out")}>
@@ -54,8 +53,8 @@ export default function Navbar() {
                         <div className="ml-4 flex items-center md:ml-6 space-x-4">
                             {session ? (
                                 <div className="flex items-center space-x-4">
-                                    <Link href="/dashboard" className="rounded-full bg-amber-600 p-3 px-4 flex items-center space-x-1 text-white hover:text-blue-600">
-                                   
+                                    <Link href="/dashboard" className="rounded-full bg-amber-600 p-3 px-4 flex items-center space-x-1 text-white hover:text-white">
+
                                         <span className="text-sm font-medium">{session.user.name?.charAt(0)}</span>
                                     </Link>
                                     <button
@@ -88,11 +87,11 @@ export default function Navbar() {
                     </div>
                 </div>
             </div>
-         
-    {/* Mobile Menu */}
-          <div onClick={()=> setIsOpen(false)} className={`  fixed inset-0  bg-black/30 bg-opacity-50 z-20  h-screen  ${isOpen ? "block" : "hidden" }  md:hidden transition-transform duration-300 ease-in-out`}>
 
-                <div className={`bg-white w-64 h-full shadow-lg  "fixed top-0 left-0 z-30 transform ${isOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out`}>  
+            {/* Mobile Menu */}
+            <div onClick={() => setIsOpen(false)} className={`  fixed inset-0  bg-black/30 bg-opacity-50 z-20  h-screen  ${isOpen ? "block" : "hidden"}  md:hidden transition-transform duration-300 ease-in-out`}>
+
+                <div className={`bg-white w-64 h-full shadow-lg  "fixed top-0 left-0 z-30 transform ${isOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out`}>
                     <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                         <Link href="/" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">
                             Home
@@ -130,16 +129,16 @@ export default function Navbar() {
                             </div>
                         )}
                     </div>
-                    </div>
                 </div>
+            </div>
 
 
-       
-               
-         
+
+
+
         </nav>
-        
-          
-        </>
+
+
+    </>
     );
 }

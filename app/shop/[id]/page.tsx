@@ -57,34 +57,10 @@ export default async function ProductDetailsPage({ params }: ProductDetailsPageP
                             ))}
                         </div>
 
-                      
+
                     </div>
 
-                    {/* Lessons / Content (Only for Courses) */}
-                    {isCourse && product.lessons && product.lessons.length > 0 && (
-                        <div className="bg-white p-8 md:p-10 rounded-3xl shadow-sm border border-gray-100">
-                            <div className="flex items-center justify-between mb-8">
-                                <h2 className="text-2xl font-bold text-gray-900">Course Curriculum</h2>
-                                <span className="text-sm font-medium text-gray-500">{product.lessons.length} Lessons</span>
-                            </div>
-                            <div className="space-y-4">
-                                {product.lessons.map((lesson: any, index: number) => (
-                                    <div key={index} className="flex items-center justify-between p-4 rounded-xl border border-gray-50 hover:border-blue-100 hover:bg-blue-50/30 transition-all group">
-                                        <div className="flex items-center gap-4">
-                                            <span className="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-500 text-xs font-bold group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                                                {index + 1}
-                                            </span>
-                                            <span className="font-semibold text-gray-700">{lesson.title}</span>
-                                        </div>
-                                        <div className="flex items-center gap-4">
-                                            <span className="text-xs text-gray-400 font-medium">{lesson.duration || "5:00"}</span>
-                                            <PlayCircle className="h-5 w-5 text-gray-300 group-hover:text-blue-600 transition-colors" />
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
+
                 </div>
 
                 {/* Right Column: Pricing & Actions UI */}
@@ -95,14 +71,19 @@ export default async function ProductDetailsPage({ params }: ProductDetailsPageP
                             <div className="flex items-baseline gap-2">
                                 <span className="text-4xl font-extrabold text-gray-900">{formatPrice(product.price)}</span>
                             </div>
+                            <button className="w-full mt-4 bg-orange-600 text-white 
+                            font-bold py-3 rounded-xl hover:bg-orange-700 transition-all shadow-lg
+                             active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
+                                Buy Now
+                            </button>
                         </div>
 
-                   
+
 
                         <div className="space-y-4 pt-8 border-t border-gray-50">
                             <h4 className="font-bold text-gray-900 text-sm italic">This {product.productType} includes:</h4>
                             <ul className="space-y-3">
-                            
+
                                 <li className="flex items-center gap-3 text-sm text-gray-600">
                                     <Clock className="h-4 w-4 text-gray-400" />
                                     <span>Self-Paced Learning</span>

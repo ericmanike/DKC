@@ -32,14 +32,10 @@ const ProductSchema = new Schema(
         fileUrl: {
             type: String,
         },
-        // For Courses: List of lessons
-        lessons: [
-            {
-                title: { type: String, required: true },
-                url: { type: String, required: true }, // Video URL or content link
-                duration: { type: String }, // Optional duration string
-            },
-        ],
+        // For Courses: Link to the Course
+        courseUrl: {
+            type: String,
+        },
         isPublished: {
             type: Boolean,
             default: false,

@@ -4,32 +4,24 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Loader2, Plus, Trash2, X } from "lucide-react";
+import ImageUpload from "@/components/ImageUpload";
 
 export default function NewProductPage() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [productType, setProductType] = useState<"book" | "course">("book");
+    const [imageUrl, setImageUrl] = useState("");
 
-    const [lessons, setLessons] = useState<{ title: string; url: string; duration: string }[]>([
-        { title: "", url: "", duration: "" }
-    ]);
 
-    const addLesson = () => {
-        setLessons([...lessons, { title: "", url: "", duration: "" }]);
-    };
-
-    const removeLesson = (index: number) => {
-        setLessons(lessons.filter((_, i) => i !== index));
-    };
-
-    const updateLesson = (index: number, field: string, value: string) => {
-        const updated = [...lessons];
-        (updated[index] as any)[field] = value;
-        setLessons(updated);
-    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (!imageUrl) {
+            toast.error("Please upload a cover image");
+            return;
+        }
+
         setIsLoading(true);
 
         const formData = new FormData(e.currentTarget);
@@ -39,14 +31,14 @@ export default function NewProductPage() {
             price: Number(formData.get("price")),
             category: formData.get("category"),
             productType: productType,
-            imageUrl: formData.get("imageUrl"),
+            imageUrl: imageUrl,
             isPublished: formData.get("isPublished") === "on",
         };
 
         if (productType === "book") {
             data.fileUrl = formData.get("fileUrl");
         } else {
-            data.lessons = lessons.filter(l => l.title && l.url);
+            data.courseUrl = formData.get("courseUrl");
         }
 
         try {
@@ -139,15 +131,12 @@ export default function NewProductPage() {
                                 className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 transition-all outline-none"
                             />
                         </div>
-                        <div className="space-y-2">
-                            <label className="text-sm font-bold text-gray-700">Cover Image URL</label>
-                            <input
-                                name="imageUrl"
-                                required
-                                placeholder="https://..."
-                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 transition-all outline-none"
-                            />
-                        </div>
+                        <ImageUpload
+                            label="Cover Image"
+                            value={imageUrl}
+                            onChange={setImageUrl}
+                            
+                        />
                     </div>
 
                     {productType === "book" ? (
@@ -161,57 +150,14 @@ export default function NewProductPage() {
                             />
                         </div>
                     ) : (
-                        <div className="space-y-4 pt-4 border-t border-gray-50">
-                            <div className="flex items-center justify-between">
-                                <h3 className="text-lg font-bold text-gray-900">Course Lessons</h3>
-                                <button
-                                    type="button"
-                                    onClick={addLesson}
-                                    className="flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700 uppercase"
-                                >
-                                    <Plus className="h-3 w-3" /> Add Lesson
-                                </button>
-                            </div>
-                            <div className="space-y-3">
-                                {lessons.map((lesson, idx) => (
-                                    <div key={idx} className="flex gap-3 items-end bg-gray-50 p-4 rounded-2xl relative group">
-                                        <div className="flex-1 space-y-2">
-                                            <label className="text-[10px] font-bold text-gray-400 uppercase">Lesson Title</label>
-                                            <input
-                                                value={lesson.title}
-                                                onChange={(e) => updateLesson(idx, "title", e.target.value)}
-                                                placeholder="Introduction"
-                                                className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
-                                            />
-                                        </div>
-                                        <div className="flex-[2] space-y-2">
-                                            <label className="text-[10px] font-bold text-gray-400 uppercase">Video/Resource URL</label>
-                                            <input
-                                                value={lesson.url}
-                                                onChange={(e) => updateLesson(idx, "url", e.target.value)}
-                                                placeholder="https://..."
-                                                className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
-                                            />
-                                        </div>
-                                        <div className="w-24 space-y-2">
-                                            <label className="text-[10px] font-bold text-gray-400 uppercase">Duration</label>
-                                            <input
-                                                value={lesson.duration}
-                                                onChange={(e) => updateLesson(idx, "duration", e.target.value)}
-                                                placeholder="10:00"
-                                                className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
-                                            />
-                                        </div>
-                                        <button
-                                            type="button"
-                                            onClick={() => removeLesson(idx)}
-                                            className="p-2 text-gray-400 hover:text-red-500 transition-colors"
-                                        >
-                                            <Trash2 className="h-5 w-5" />
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
+                        <div className="space-y-2">
+                            <label className="text-sm font-bold text-gray-700">Course URL</label>
+                            <input
+                                name="courseUrl"
+                                required={productType === "course"}
+                                placeholder="https://..."
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 transition-all outline-none"
+                            />
                         </div>
                     )}
 
@@ -225,7 +171,7 @@ export default function NewProductPage() {
                     <button
                         type="button"
                         onClick={() => router.back()}
-                        className="px-8 py-4 rounded-2xl font-bold text-gray-500 hover:bg-gray-100 transition-all"
+                        className="px-4 py-1 rounded-2xl font-bold text-gray-500 hover:bg-gray-100 transition-all"
                     >
                         Cancel
                     </button>

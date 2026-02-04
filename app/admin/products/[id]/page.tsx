@@ -4,6 +4,7 @@ import { useEffect, useState, use } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Loader2, Plus, Trash2, Save, ArrowLeft } from "lucide-react";
+import ImageUpload from "@/components/ImageUpload";
 
 interface PageProps {
     params: Promise<{ id: string }>;
@@ -16,8 +17,7 @@ export default function EditProductPage({ params }: PageProps) {
     const [isSaving, setIsSaving] = useState(false);
     const [productType, setProductType] = useState<"book" | "course">("book");
     const [productData, setProductData] = useState<any>(null);
-
-    const [lessons, setLessons] = useState<{ title: string; url: string; duration: string }[]>([]);
+    const [imageUrl, setImageUrl] = useState("");
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -27,9 +27,7 @@ export default function EditProductPage({ params }: PageProps) {
                 const data = await res.json();
                 setProductData(data);
                 setProductType(data.productType);
-                if (data.productType === "course") {
-                    setLessons(data.lessons || []);
-                }
+                setImageUrl(data.imageUrl || "");
             } catch (error) {
                 toast.error("Error loading product");
                 router.push("/admin/dashboard");
@@ -40,22 +38,16 @@ export default function EditProductPage({ params }: PageProps) {
         fetchProduct();
     }, [id, router]);
 
-    const addLesson = () => {
-        setLessons([...lessons, { title: "", url: "", duration: "" }]);
-    };
 
-    const removeLesson = (index: number) => {
-        setLessons(lessons.filter((_, i) => i !== index));
-    };
-
-    const updateLesson = (index: number, field: string, value: string) => {
-        const updated = [...lessons];
-        (updated[index] as any)[field] = value;
-        setLessons(updated);
-    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (!imageUrl) {
+            toast.error("Please upload a cover image");
+            return;
+        }
+
         setIsSaving(true);
 
         const formData = new FormData(e.currentTarget);
@@ -65,16 +57,16 @@ export default function EditProductPage({ params }: PageProps) {
             price: Number(formData.get("price")),
             category: formData.get("category"),
             productType: productType,
-            imageUrl: formData.get("imageUrl"),
+            imageUrl: imageUrl,
             isPublished: formData.get("isPublished") === "on",
         };
 
         if (productType === "book") {
             data.fileUrl = formData.get("fileUrl");
-            data.lessons = []; // Clear lessons if type changed to book
+            data.courseUrl = "";
         } else {
-            data.lessons = lessons.filter(l => l.title && l.url);
-            data.fileUrl = ""; // Clear fileUrl if type changed to course
+            data.courseUrl = formData.get("courseUrl");
+            data.fileUrl = "";
         }
 
         try {
@@ -123,6 +115,8 @@ export default function EditProductPage({ params }: PageProps) {
             </div>
         );
     }
+
+    if (!productData) return null;
 
     return (
         <div className="container mx-auto px-4 py-12 max-w-4xl">
@@ -190,15 +184,11 @@ export default function EditProductPage({ params }: PageProps) {
                                 className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 transition-all outline-none"
                             />
                         </div>
-                        <div className="space-y-2">
-                            <label className="text-sm font-bold text-gray-700 uppercase tracking-wider">Cover Image URL</label>
-                            <input
-                                name="imageUrl"
-                                required
-                                defaultValue={productData.imageUrl}
-                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 transition-all outline-none"
-                            />
-                        </div>
+                        <ImageUpload
+                            label="Cover Image"
+                            value={imageUrl}
+                            onChange={setImageUrl}
+                        />
                     </div>
 
                     {productType === "book" ? (
@@ -213,55 +203,16 @@ export default function EditProductPage({ params }: PageProps) {
                         </div>
                     ) : (
                         <div className="space-y-4 pt-4 border-t border-gray-50">
-                            <div className="flex items-center justify-between">
-                                <h3 className="text-lg font-bold text-gray-900">Course Lessons</h3>
-                                <button
-                                    type="button"
-                                    onClick={addLesson}
-                                    className="flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700 uppercase"
-                                >
-                                    <Plus className="h-3 w-3" /> Add Lesson
-                                </button>
-                            </div>
-                            <div className="space-y-3">
-                                {lessons.map((lesson, idx) => (
-                                    <div key={idx} className="flex gap-3 items-end bg-gray-50 p-4 rounded-2xl">
-                                        <div className="flex-1 space-y-2">
-                                            <label className="text-[10px] font-bold text-gray-400 uppercase">Lesson Title</label>
-                                            <input
-                                                value={lesson.title}
-                                                onChange={(e) => updateLesson(idx, "title", e.target.value)}
-                                                className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm outline-none"
-                                            />
-                                        </div>
-                                        <div className="flex-2 space-y-2">
-                                            <label className="text-[10px] font-bold text-gray-400 uppercase">Video URL</label>
-                                            <input
-                                                value={lesson.url}
-                                                onChange={(e) => updateLesson(idx, "url", e.target.value)}
-                                                className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm outline-none"
-                                            />
-                                        </div>
-                                        <div className="w-20 space-y-2">
-                                            <label className="text-[10px] font-bold text-gray-400 uppercase">Duration</label>
-                                            <input
-                                                value={lesson.duration}
-                                                onChange={(e) => updateLesson(idx, "duration", e.target.value)}
-                                                className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm outline-none"
-                                            />
-                                        </div>
-                                        <button
-                                            type="button"
-                                            onClick={() => removeLesson(idx)}
-                                            className="p-2 text-gray-400 hover:text-red-500 transition-colors"
-                                        >
-                                            <Trash2 className="h-5 w-5" />
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
+                            <label className="text-sm font-bold text-gray-700 uppercase tracking-wider">Course URL</label>
+                            <input
+                                name="courseUrl"
+                                required={productType === "course"}
+                                defaultValue={productData.courseUrl}
+                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 transition-all outline-none"
+                            />
                         </div>
-                    )}
+                    )
+                    }
 
                     <div className="flex items-center gap-2 pt-4">
                         <input
@@ -273,7 +224,7 @@ export default function EditProductPage({ params }: PageProps) {
                         />
                         <label htmlFor="isPublished" className="text-sm font-bold text-gray-700">Published</label>
                     </div>
-                </div>
+                </div >
 
                 <div className="flex justify-between">
                     <button
@@ -307,7 +258,7 @@ export default function EditProductPage({ params }: PageProps) {
                         </button>
                     </div>
                 </div>
-            </form>
-        </div>
+            </form >
+        </div >
     );
 }

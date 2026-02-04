@@ -7,7 +7,7 @@ import User from "@/models/User";
 import Order from "@/models/Order";
 import Link from "next/link";
 import { formatPrice } from "@/lib/utils";
-import { BookMarked, Layers, Package, ShoppingBag, Users } from "lucide-react";
+import {  ShoppingBag, Users } from "lucide-react";
 
 export default async function AdminDashboard() {
     const session = await getServerSession(authOptions as any);
@@ -33,7 +33,7 @@ export default async function AdminDashboard() {
             <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
                     <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Admin Dashboard</h1>
-                    <p className="text-gray-600 mt-1">Monitor and manage your shop's performance.</p>
+                    <p className="text-gray-600 mt-1">Track all the performance here.</p>
                 </div>
                 <Link
                     href="/admin/products/new"
@@ -46,7 +46,7 @@ export default async function AdminDashboard() {
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                 <StatCard title="Total Revenue" value={formatPrice(stats.totalRevenue)}  />
                 <StatCard title="All Products" value={stats.products}  />
                 <StatCard title="Total Users" value={stats.users}   />
@@ -55,7 +55,7 @@ export default async function AdminDashboard() {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 {/* Recent Products */}
-                <div className="lg:col-span-8 bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                <div className="lg:col-span-8 bg-white p-8 rounded-3xl  border">
                     <div className="flex items-center justify-between mb-8 pb-4 border-b">
                         <h3 className="text-xl font-bold text-gray-900">Recently Added Products</h3>
                         <Link href="/admin/products" className="text-sm font-bold text-blue-600 hover:underline">View All</Link>
@@ -86,9 +86,9 @@ export default async function AdminDashboard() {
                                         <td className="py-4 font-semibold">{formatPrice(p.price)}</td>
                                         <td className="py-4">
                                             {p.isPublished ? (
-                                                <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">Published</span>
+                                                <span className="text-xs font-bold text-emerald-600  px-2 py-1 rounded">Available</span>
                                             ) : (
-                                                <span className="text-xs font-bold text-gray-400 bg-gray-100 px-2 py-1 rounded">Draft</span>
+                                                <span className="text-xs font-bold text-gray-400  px-2 py-1 rounded">Out of Stock</span>
                                             )}
                                         </td>
                                         <td className="py-4 text-right">
@@ -131,11 +131,9 @@ export default async function AdminDashboard() {
 
 function StatCard({ title, value, icon, color }: any) {
     return (
-        <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex items-center gap-5">
-            <div className={`h-14 w-14 rounded-2xl flex items-center justify-center ${color}`}>
-                {icon}
-            </div>
-            <div>
+        <div className="bg-white p-3 md:p-6 rounded-3xl border-2 border-orange-400  md:border-gray-200 hover:border-orange-500   flex items-center  justify-center gap-5">
+          
+            <div className="flex justify-center flex-col items-center gap-2">
                 <p className="text-sm font-medium text-gray-500">{title}</p>
                 <p className="text-2xl font-black text-gray-900">{value}</p>
             </div>
