@@ -47,7 +47,7 @@ export default async function AdminDashboard() {
 
             {/* Stats Grid */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                <StatCard title="Total Revenue" value={formatPrice(stats.totalRevenue)}  />
+                <StatCard title="Total Revenue " value={formatPrice(stats.totalRevenue)}  />
                 <StatCard title="All Products" value={stats.products}  />
                 <StatCard title="Total Users" value={stats.users}   />
                 <StatCard title="Orders" value={stats.orders}   />
@@ -131,11 +131,11 @@ export default async function AdminDashboard() {
 
 function StatCard({ title, value, icon, color }: any) {
     return (
-        <div className="bg-white p-3 md:p-6 rounded-3xl border-2 border-orange-400  md:border-gray-200 hover:border-orange-500   flex items-center  justify-center gap-5">
+        <div className="bg-white p-3 md:p-6 rounded-[10px] border-2 border-orange-400  md:border-gray-200 hover:border-orange-500   flex items-center  justify-center gap-5">
           
             <div className="flex justify-center flex-col items-center gap-2">
                 <p className="text-sm font-medium text-gray-500">{title}</p>
-                <p className="text-2xl font-black text-gray-900">{value}</p>
+                <p className="text-xl  md:text-2xl font-black text-gray-900">{value}</p>
             </div>
         </div>
     );

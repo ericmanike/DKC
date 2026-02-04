@@ -22,7 +22,7 @@ export default function Navbar() {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     <div className="flex items-center">
-                        <Link href="/" className="md:text-3xl font-black text-gray-900 font-outfit tracking-tighter">
+                        <Link href="/" className="md:text-3xl font-black text-orange-600 font-outfit tracking-tighter">
                             DKC BOOKS.
                         </Link>
                     </div>
