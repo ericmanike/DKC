@@ -48,7 +48,13 @@ export const PaymentBtn = ({ email, id, price }: any) => {
             return
 
         }
-        console.log('Initiating payment for the product:')
+        console.log('Initiating payment for the product:', { email, price, id });
+
+
+        if (!email || !price || !id) {
+            console.log('Missing required payment information:', { email, price, id })
+            return
+        }
 
         try {
             // Generate a unique reference
@@ -63,9 +69,9 @@ export const PaymentBtn = ({ email, id, price }: any) => {
             }
             const handler = window.PaystackPop.setup({
                 key: paystackKey,
-                email: 'eric@gmail.com',
+                email: email,
                 currency: 'GHS',
-                amount: 100, // Convert to kobo
+                amount:( parseFloat(price) * 100), // Convert to kobo
 
                 ref: reference,
                 onClose: () => {

@@ -86,11 +86,7 @@ export default async function ProductDetailsPage({ params }: ProductDetailsPageP
                             <div className="flex items-baseline gap-2">
                                 <span className="text-4xl font-extrabold text-gray-900">{formatPrice(product.price)}</span>
                             </div>
-                            <button className="w-full mt-4 bg-orange-600 text-white 
-                            font-bold py-3 rounded-xl hover:bg-orange-700 transition-all shadow-lg
-                             active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
-                                Buy Now
-                            </button>
+                       
                             <PaymentBtn email='eric@gmail.com'  price="30"  id="num"/>
 
                             

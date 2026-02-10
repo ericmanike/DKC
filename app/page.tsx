@@ -33,7 +33,7 @@ export default async function HomePage() {
     <div className="flex flex-col gap-20 pb-20 bg-gray-300">
       {/* Hero Section */}
       {/* Hero Section */}
-      <section className="relative overflow-hidden w-full min-h-[500px] lg:h-[700px] flex items-center justify-center py-20 lg:py-0">
+      <section className="relative overflow-hidden w-full min-h-125 lg:h-125 flex items-center justify-center py-20 lg:py-0">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
@@ -41,7 +41,7 @@ export default async function HomePage() {
             alt="Hero Background"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/60 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+          <div className="absolute inset-0 bg-black/60 bg-linear-to-t from-black/80 via-black/50 to-black/30" />
         </div>
 
         <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 text-center">
