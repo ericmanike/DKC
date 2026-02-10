@@ -66,12 +66,12 @@ export default function Navbar() {
                                 </div>
                             ) : (
                                 <div className="flex items-center space-x-2">
-                                    <Link href="/auth/login" className="text-sm font-medium text-gray-700 hover:text-blue-600">
+                                    <Link href="/auth/login" className="text-sm font-medium  px-6 py-2 rounded-[10px] bg-blue-600 text-white hover:text-gray-200">
                                         Login
                                     </Link>
-                                    <Link href="/auth/register" className="rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 shadow-md hover:shadow-lg transition-all">
+                                    {/* <Link href="/auth/register" className="rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 shadow-md hover:shadow-lg transition-all">
                                         Sign Up
-                                    </Link>
+                                    </Link> */}
                                 </div>
                             )}
                         </div>

@@ -10,6 +10,13 @@ interface PageProps {
     params: Promise<{ id: string }>;
 }
 
+
+
+
+
+
+
+
 export default function EditProductPage({ params }: PageProps) {
     const router = useRouter();
     const { id } = use(params);
@@ -18,6 +25,10 @@ export default function EditProductPage({ params }: PageProps) {
     const [productType, setProductType] = useState<"book" | "course">("book");
     const [productData, setProductData] = useState<any>(null);
     const [imageUrl, setImageUrl] = useState("");
+
+  
+
+
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -36,6 +47,7 @@ export default function EditProductPage({ params }: PageProps) {
             }
         };
         fetchProduct();
+      
     }, [id, router]);
 
 
@@ -107,6 +119,19 @@ export default function EditProductPage({ params }: PageProps) {
             setIsSaving(false);
         }
     };
+
+
+
+//payment
+
+
+
+
+
+
+
+
+
 
     if (isLoading) {
         return (

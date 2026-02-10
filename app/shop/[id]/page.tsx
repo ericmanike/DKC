@@ -3,7 +3,7 @@ import Product from "@/models/Product";
 import { formatPrice } from "@/lib/utils";
 import { BadgeCheck, BookOpen, Clock, Globe, GraduationCap, PlayCircle, Share2, ShoppingCart } from "lucide-react";
 import { notFound } from "next/navigation";
-
+import { PaymentBtn } from "@/components/paymentBtn";
 
 interface ProductDetailsPageProps {
     params: Promise<{ id: string }>;
@@ -19,6 +19,21 @@ export default async function ProductDetailsPage({ params }: ProductDetailsPageP
     if (!product) {
         return notFound();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     const isCourse = product.productType === "course";
 
@@ -76,6 +91,9 @@ export default async function ProductDetailsPage({ params }: ProductDetailsPageP
                              active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
                                 Buy Now
                             </button>
+                            <PaymentBtn email='eric@gmail.com'  price="30"  id="num"/>
+
+                            
                         </div>
 
 
