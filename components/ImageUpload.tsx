@@ -42,7 +42,7 @@ export default function ImageUpload({ value, onChange, label }: ImageUploadProps
     };
 
     return (
-        <div className="space-y-2 " >
+        <div className="space-y-2  " >
             <label className="text-sm font-bold  uppercase tracking-wider">{label}</label>
             <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-200 rounded-3xl p-6 transition-all hover:border-blue-400 bg-gray-50/50">
                 {value ? (
@@ -59,7 +59,7 @@ export default function ImageUpload({ value, onChange, label }: ImageUploadProps
                         </div>
                     </div>
                 ) : (
-                    <div className="flex flex-col items-center gap-3">
+                    <div className="flex flex-col items-center gap-3 relative">
                         <div className="p-4 bg-white rounded-2xl shadow-sm">
                             {isUploading ? (
                                 <Loader2 className="h-8 w-8 text-blue-500 animate-spin" />
@@ -78,13 +78,13 @@ export default function ImageUpload({ value, onChange, label }: ImageUploadProps
                             accept="image/*"
                             onChange={handleUpload}
                             disabled={isUploading}
-                            className="absolute inset-0 w-full h-[90%] opacity-0 cursor-pointer"
+                            className="absolute inset-0 w-full   opacity-0 cursor-pointer"
                         />
                     </div>
                 )}
             </div>
             {/* Hidden input to keep form submission compatibility if needed */}
-            <input type="hidden" name="imageUrl" value={value} />
+       
         </div>
     );
 }
