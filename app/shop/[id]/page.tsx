@@ -26,15 +26,6 @@ export default async function ProductDetailsPage({ params }: ProductDetailsPageP
 
 
 
-
-
-
-
-
-
-
-
-
     const isCourse = product.productType === "course";
 
     return (
@@ -44,13 +35,13 @@ export default async function ProductDetailsPage({ params }: ProductDetailsPageP
                 {/* Left Column: Image/Banner & Content */}
                 <div className="lg:col-span-8 space-y-12">
                     {/* Banner */}
-                    <div className="relative aspect-video rounded-3xl overflow-hidden  ">
+                    <div className="relative aspect-video hover:border-2 hover:border-amber-700 rounded-3xl overflow-hidden  ">
                         <img
                             src={product.imageUrl}
                             alt={product.title}
                             className="w-full h-full object-cover"
                         />
-                        <div className="absolute inset-0 bg-slate-600/60 flex flex-col justify-end p-8 text-white">
+                        <div className="absolute top-0  group  inset-0 flex flex-col justify-end p-8 text-white">
                             <div className="flex items-center gap-3 mb-4">
                                 <span className="bg-blue-600/90 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
                                     {product.productType}
@@ -59,7 +50,7 @@ export default async function ProductDetailsPage({ params }: ProductDetailsPageP
                                     {product.category}
                                 </span>
                             </div>
-                            <h1 className="text-3xl md:text-5xl font-black">{product.title}</h1>
+                            <h1 className="text-2xl md:text-4xl bg-black/30 font-black rounded-2xl w-fit p-6">{product.title}</h1>
                         </div>
                     </div>
 

@@ -121,13 +121,12 @@ export default function NewProductPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                            <label className="text-sm font-bold text-gray-700">Price ($)</label>
+                            <label className="text-sm font-bold text-gray-700">Price (GHS)</label>
                             <input
                                 name="price"
                                 type="number"
                                 required
-                                step="0.01"
-                                placeholder="29.99"
+                                placeholder="100"
                                 className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 transition-all outline-none"
                             />
                         </div>
