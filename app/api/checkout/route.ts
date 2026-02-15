@@ -8,15 +8,27 @@ import Product from "@/models/Product";
 export async function POST(req: Request) {
     try {
         const session = (await getServerSession(authOptions as any)) as any;
+        const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
 
         if (!session) {
             return NextResponse.json({ message: "Login required" }, { status: 401 });
         }
 
-        const { productId } = await req.json();
+        const { productId, reference } = await req.json();
 
-        if (!productId) {
-            return NextResponse.json({ message: "Product ID required" }, { status: 400 });
+        if (!productId || !reference) {
+            return NextResponse.json({ message: "Product ID and reference required" }, { status: 400 });
+        }
+           
+  const verifyResponse = await fetch(`https://api.paystack.co/transaction/verify/${reference}`, {
+      headers: {
+        Authorization: `Bearer ${PAYSTACK_SECRET_KEY}`,
+      },
+    })
+    
+        if (!verifyResponse.ok) {
+
+            return NextResponse.json({ message: "Payment verification failed" }, { status: 400 });
         }
 
         await connectToDatabase();
