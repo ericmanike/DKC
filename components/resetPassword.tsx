@@ -2,8 +2,8 @@
 import { useState } from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-import { ArrowLeft, Eye, EyeOff} from 'lucide-react'
- import { useSearchParams,useRouter} from 'next/navigation'
+import { ArrowLeft, Eye, EyeOff } from 'lucide-react'
+import { useSearchParams, useRouter } from 'next/navigation'
 
 
 
@@ -17,8 +17,8 @@ const newPasswordValidationSchema = Yup.object().shape({
 export default function ResetPasswordForm() {
 
 
- const  Router = useRouter()
-   const [isSending, setIsSending] = useState(false);
+  const Router = useRouter()
+  const [isSending, setIsSending] = useState(false);
 
   const [showNewPassword, setShowNewPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -31,50 +31,50 @@ export default function ResetPasswordForm() {
 
 
   const resetPassword = async (newPassword: string) => {
-     setIsSending(true);
-     if (!token || !email) {
-   
+    setIsSending(true);
+    if (!token || !email) {
+
       setIsSending(false);
       return;
     }
     try {
-      const res = await fetch('/api/auth/resetPassword', {
+      const res = await fetch('/api/auth/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({token:token,email:email,newPassword:newPassword } ),
+        body: JSON.stringify({ token: token, email: email, newPassword: newPassword }),
       })
       if (!res.ok) {
-        console.log(' this is the token'+ token)
-        console.log(' this is the email'+ email)
-        console.log(' this is the new password'+ newPassword)
+        console.log(' this is the token' + token)
+        console.log(' this is the email' + email)
+        console.log(' this is the new password' + newPassword)
         console.log('response', res)
-        
-         throw new Error('Password reset failed')
+
+        throw new Error('Password reset failed')
       }
-      
+
       const data = await res.json()
-     
+
       console.log('Password reset successful:', data)
-  
+
       Router.replace('/login')
     } catch (err: any) {
-  
+
       console.error(err)
-    }finally {
+    } finally {
       setIsSending(false);
     }
   }
 
   return (
     <div className="h-screen flex justify-center items-center  p-10 m-auto  md:w-1/2">
-   
-      
-       <button onClick={() => Router.replace('/Login')} className="absolute top-4 left-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded inline-flex items-center">
-          <ArrowLeft/>
-         <span>Back</span>
-       </button>
-      { (
-        <Formik 
+
+
+      <button onClick={() => Router.replace('/Login')} className="absolute top-4 left-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded inline-flex items-center">
+        <ArrowLeft />
+        <span>Back</span>
+      </button>
+      {(
+        <Formik
           initialValues={{ newPassword: '', confirmPassword: '' }}
           validationSchema={newPasswordValidationSchema}
           onSubmit={(values) => resetPassword(values.newPassword)}
@@ -84,10 +84,10 @@ export default function ResetPasswordForm() {
               <h2 className="text-xl font-bold text-center">Enter New Password</h2>
               <label>New Password</label>
               <div className="relative">
-                <Field 
-                  type={showNewPassword ? "text" : "password"} 
-                  name="newPassword" 
-                  className="border p-2 rounded w-full pr-10" 
+                <Field
+                  type={showNewPassword ? "text" : "password"}
+                  name="newPassword"
+                  className="border p-2 rounded w-full pr-10"
                 />
                 <button
                   type="button"
@@ -101,10 +101,10 @@ export default function ResetPasswordForm() {
 
               <label>Confirm Password</label>
               <div className="relative">
-                <Field 
-                  type={showConfirmPassword ? "text" : "password"} 
-                  name="confirmPassword" 
-                  className="border p-2 rounded w-full pr-10" 
+                <Field
+                  type={showConfirmPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  className="border p-2 rounded w-full pr-10"
                 />
                 <button
                   type="button"
@@ -119,9 +119,9 @@ export default function ResetPasswordForm() {
               <button
                 type="submit"
                 disabled={!dirty || !isValid || isSubmitting}
-              className={` ${ !dirty || !isValid ? 'bg-gray-600 cursor-not-allowed ' : 'bg-blue-500 cursor-pointer'} text-white p-2 rounded transition-colors`}
+                className={` ${!dirty || !isValid ? 'bg-gray-600 cursor-not-allowed ' : 'bg-blue-500 cursor-pointer'} text-white p-2 rounded transition-colors`}
               >
-                {isSending ? 'Reseting...' : 'Reset Password'} 
+                {isSending ? 'Reseting...' : 'Reset Password'}
               </button>
 
             </Form>
@@ -129,6 +129,6 @@ export default function ResetPasswordForm() {
         </Formik>
       )}
     </div>
-  
+
   )
 }

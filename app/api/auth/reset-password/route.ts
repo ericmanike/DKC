@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     try {
         const { token, password } = await req.json();
 
-      
+
 
         if (!token || !password) {
             return NextResponse.json({ error: 'Token and password are required' }, { status: 400 });
