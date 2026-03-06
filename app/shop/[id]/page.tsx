@@ -5,16 +5,20 @@ import { BadgeCheck, BookOpen, Clock, Globe, GraduationCap, PlayCircle, Share2, 
 import { notFound } from "next/navigation";
 import { PaymentBtn } from "@/components/paymentBtn";
 
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
 interface ProductDetailsPageProps {
     params: Promise<{ id: string }>;
 }
 
 export default async function ProductDetailsPage({ params }: ProductDetailsPageProps) {
     const { id } = await params;
+    const session = (await getServerSession(authOptions as any)) as any;
 
     await connectToDatabase();
 
-    const product = await Product.findById(id).lean();
+    const product = await Product.findById(id).lean() as any;
 
     if (!product) {
         return notFound();
@@ -77,10 +81,15 @@ export default async function ProductDetailsPage({ params }: ProductDetailsPageP
                             <div className="flex items-baseline gap-2">
                                 <span className="text-4xl font-extrabold text-gray-900">{formatPrice(product.price)}</span>
                             </div>
-                       
-                            <PaymentBtn email='eric@gmail.com'  price="30"  id="num"/>
 
-                            
+                            <PaymentBtn
+                                email={session?.user?.email}
+                                price={product.price}
+                                id={product._id.toString()}
+                                productType={product.productType}
+                            />
+
+
                         </div>
 
 

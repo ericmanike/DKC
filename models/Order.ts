@@ -28,6 +28,13 @@ const OrderSchema = new Schema(
             enum: ["pending", "completed", "failed"],
             default: "pending",
         },
+        phoneNumber: { type: String },
+        location: { type: String },
+        deliveryStatus: {
+            type: String,
+            enum: ["none", "pending", "shipped", "delivered"],
+            default: "none",
+        },
     },
     { timestamps: true }
 );

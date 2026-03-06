@@ -6,12 +6,14 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Loader2, Eye, EyeOff } from "lucide-react";
+import ForgotPasswordModal from "@/components/auth/ForgotPasswordModal";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [isForgotModalOpen, setIsForgotModalOpen] = useState(false);
     const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -97,6 +99,16 @@ export default function LoginPage() {
                         </div>
                     </div>
 
+                    <div className="flex items-center justify-end">
+                        <button
+                            type="button"
+                            onClick={() => setIsForgotModalOpen(true)}
+                            className="text-sm font-semibold text-blue-600 hover:text-blue-500 transition-colors"
+                        >
+                            Forgot password?
+                        </button>
+                    </div>
+
                     <div>
                         <button
                             type="submit"
@@ -116,6 +128,12 @@ export default function LoginPage() {
                     </p>
                 </div>
             </div>
+            
+
+            <ForgotPasswordModal
+                isOpen={isForgotModalOpen}
+                onClose={() => setIsForgotModalOpen(false)}
+            />
         </div>
     );
 }
