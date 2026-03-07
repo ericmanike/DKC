@@ -1,7 +1,8 @@
 'use client'
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation";
-import { MapPin, Phone } from "lucide-react";
+import { MapPin, Phone, Info } from "lucide-react";
+import { formatPrice } from "@/lib/utils";
 
 declare global {
     interface Window {
@@ -26,6 +27,10 @@ export const PaymentBtn = ({ email, id, price, productType }: any) => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [location, setLocation] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const basePrice = parseFloat(price);
+    const charge = basePrice * 0.02;
+    const total = basePrice + charge;
 
     const loadPaystackScript = () => {
         const script = document.createElement('script')
@@ -70,7 +75,7 @@ export const PaymentBtn = ({ email, id, price, productType }: any) => {
                 key: paystackKey,
                 email: email,
                 currency: 'GHS',
-                amount: (parseFloat(price) * 100),
+                amount: Math.round(total * 100),
                 ref: reference,
                 onClose: () => {
                     setIsSubmitting(false);
@@ -139,6 +144,29 @@ export const PaymentBtn = ({ email, id, price, productType }: any) => {
                         onChange={(e) => setLocation(e.target.value)}
                         className="block w-full pl-10 pr-3 py-2.5 border border-gray-200 rounded-xl text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all outline-none"
                     />
+                </div>
+            </div>
+
+            <div className="bg-gray-50 rounded-xl p-4 space-y-2 border border-gray-100">
+                <div className="flex justify-between text-sm">
+                    <span className="text-gray-500">Subtotal</span>
+                    <span className="font-medium text-gray-900">{formatPrice(basePrice)}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                    <div className="flex items-center gap-1.5 text-gray-500">
+                        <span>Charges (2%)</span>
+                        <div className="group relative">
+                            <Info size={12} className="cursor-help" />
+                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block w-48 p-2 bg-gray-900 text-white text-[10px] rounded shadow-xl z-20 text-center leading-tight">
+                                Transaction processing and convenience fee
+                            </div>
+                        </div>
+                    </div>
+                    <span className="font-medium text-orange-600">+{formatPrice(charge)}</span>
+                </div>
+                <div className="pt-2 border-t border-gray-200 flex justify-between items-center">
+                    <span className="text-sm font-bold text-gray-900">Total to Pay</span>
+                    <span className="text-lg font-black text-gray-900">{formatPrice(total)}</span>
                 </div>
             </div>
 

@@ -21,10 +21,11 @@ interface ReceiptEmailProps {
         productType: string;
     }>;
     total: number;
+    charges?: number;
     orderId: string;
 }
 
-export const ReceiptEmail = ({ userName, items, total, orderId }: ReceiptEmailProps) => (
+export const ReceiptEmail = ({ userName, items, total, charges, orderId }: ReceiptEmailProps) => (
     <Html>
         <Head />
         <Preview>Order Confirmation - DKC BOOKS</Preview>
@@ -47,6 +48,12 @@ export const ReceiptEmail = ({ userName, items, total, orderId }: ReceiptEmailPr
                                 <Text style={itemPrice}>GHS {item.price.toFixed(2)}</Text>
                             </Section>
                         ))}
+                        {charges && (
+                            <Section style={itemRow}>
+                                <Text style={itemTitle}>Charges (2%)</Text>
+                                <Text style={itemPrice}>GHS {charges.toFixed(2)}</Text>
+                            </Section>
+                        )}
                         <Hr style={hr} />
                         <Section style={itemRow}>
                             <Text style={totalLabel}>Total</Text>

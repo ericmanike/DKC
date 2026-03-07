@@ -22,6 +22,7 @@ interface AdminOrderNotificationEmailProps {
         productType: string;
     }>;
     total: number;
+    charges?: number;
     orderId: string;
 }
 
@@ -32,6 +33,7 @@ export const AdminOrderNotificationEmail = ({
     location,
     items,
     total,
+    charges,
     orderId,
 }: AdminOrderNotificationEmailProps) => (
     <Html>
@@ -65,6 +67,12 @@ export const AdminOrderNotificationEmail = ({
                                 <Text style={itemPrice}>GHS {item.price.toFixed(2)}</Text>
                             </Section>
                         ))}
+                        {charges && (
+                            <Section style={itemRow}>
+                                <Text style={itemTitle}>Charges (2%)</Text>
+                                <Text style={itemPrice}>GHS {charges.toFixed(2)}</Text>
+                            </Section>
+                        )}
                         <Hr style={hr} />
                         <Section style={itemRow}>
                             <Text style={totalLabel}>Total Revenue</Text>

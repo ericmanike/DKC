@@ -54,16 +54,20 @@ export async function POST(req: Request) {
 
 
 
+        const basePrice = product.price;
+        const charge = basePrice * 0.02;
+        const totalAmount = basePrice + charge;
+
         // Create the order
         const order = await Order.create({
             userId: session.user.id,
             items: [{
                 productId: product._id,
                 title: product.title,
-                price: product.price,
+                price: basePrice,
                 productType: product.productType
             }],
-            totalAmount: product.price,
+            totalAmount: totalAmount,
             status: "completed",
             phoneNumber,
             location,
@@ -82,10 +86,11 @@ export async function POST(req: Request) {
                 location: location,
                 items: [{
                     title: product.title,
-                    price: product.price,
+                    price: basePrice,
                     productType: product.productType
                 }],
-                total: product.price,
+                total: totalAmount,
+                charges: charge,
                 orderId: order._id.toString()
             })
         });
@@ -98,10 +103,11 @@ export async function POST(req: Request) {
                 userName: session.user.name || "Customer",
                 items: [{
                     title: product.title,
-                    price: product.price,
+                    price: basePrice,
                     productType: product.productType
                 }],
-                total: product.price,
+                total: totalAmount,
+                charges: charge,
                 orderId: order._id.toString()
             })
         });
