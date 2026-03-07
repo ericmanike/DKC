@@ -1,5 +1,6 @@
 import connectToDatabase from "@/lib/db";
 import Product from "@/models/Product";
+import Order from "@/models/Order";
 import { formatPrice } from "@/lib/utils";
 import { BadgeCheck, BookOpen, Clock, Globe, GraduationCap, PlayCircle, Share2, ShoppingCart } from "lucide-react";
 import { notFound } from "next/navigation";
@@ -135,12 +136,28 @@ export default async function ProductDetailsPage({ params }: ProductDetailsPageP
                                     <span className="text-3xl md:text-4xl font-extrabold text-gray-900">{formatPrice(product.price)}</span>
                                 </div>
 
-                                <PaymentBtn
-                                    email={session?.user?.email}
-                                    price={product.price}
-                                    id={product._id.toString()}
-                                    productType={product.productType}
-                                />
+                                {session?.user?.id && (await Order.findOne({ userId: session.user.id, "items.productId": product._id, status: "completed" })) ? (
+                                    <div className={`mt-4 p-4 ${isCourse ? 'bg-indigo-50 border-indigo-100' : 'bg-emerald-50 border-emerald-100'} border rounded-xl space-y-3`}>
+                                        <p className={`text-sm font-bold ${isCourse ? 'text-indigo-700' : 'text-emerald-700'} flex items-center gap-2`}>
+                                            <BadgeCheck size={18} /> You already own this {product.productType}
+                                        </p>
+                                        <a
+                                            href={(product.productType === 'book' ? product.fileUrl : product.courseUrl) || "#"}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className={`w-full ${isCourse ? 'bg-indigo-600 hover:bg-indigo-700 shadow-indigo-600/20' : 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/20'} text-white font-bold py-3.5 rounded-xl transition-all shadow-lg active:scale-[0.98] flex items-center justify-center gap-2`}
+                                        >
+                                            Access Your {product.productType === 'book' ? 'Book' : 'Course'} &rarr;
+                                        </a>
+                                    </div>
+                                ) : (
+                                    <PaymentBtn
+                                        email={session?.user?.email}
+                                        price={product.price}
+                                        id={product._id.toString()}
+                                        productType={product.productType}
+                                    />
+                                )}
 
 
                             </div>

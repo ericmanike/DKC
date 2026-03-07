@@ -100,22 +100,36 @@ export default async function UserDashboard() {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {courses.map((course: any, idx: number) => (
                                         <div key={`${course.productId}-${idx}`} className="flex gap-6 bg-white p-5 rounded-3xl shadow-sm border border-gray-100 items-center hover:shadow-lg transition-all group">
-                                            <div className="relative h-28 w-40 flex-shrink-0 overflow-hidden rounded-xl">
+                                            <a
+                                                href={course.courseUrl || "#"}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="relative h-28 w-40 flex-shrink-0 overflow-hidden rounded-xl"
+                                            >
                                                 <img src={course.imageUrl} className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" />
                                                 <div className="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors flex items-center justify-center">
                                                     <PlayCircle className="h-8 w-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                                                 </div>
-                                            </div>
+                                            </a>
                                             <div className="flex-1 min-w-0">
                                                 <p className="text-[10px] text-indigo-500 font-black uppercase tracking-widest">{course.category}</p>
-                                                <h3 className="font-bold text-gray-900 truncate mt-1">{course.title}</h3>
+                                                <a
+                                                    href={course.courseUrl || "#"}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="hover:underline"
+                                                >
+                                                    <h3 className="font-bold text-gray-900 truncate mt-1">{course.title}</h3>
+                                                </a>
                                                 <p className="text-[10px] text-gray-400 mt-1 italic">Order: #{course.orderId.slice(-6)}</p>
-                                                <Link
-                                                    href={`/shop/${course.productId}`}
+                                                <a
+                                                    href={course.courseUrl || "#"}
+                                                    target="_blank"
+                                                    rel="noreferrer"
                                                     className="mt-4 flex items-center gap-1 text-sm font-bold text-indigo-600 hover:text-indigo-700 transition-colors"
                                                 >
                                                     Resume Learning <span className="text-lg">&rarr;</span>
-                                                </Link>
+                                                </a>
                                             </div>
                                         </div>
                                     ))}
@@ -147,12 +161,24 @@ export default async function UserDashboard() {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     {books.map((book: any, idx) => (
                                         <div key={`${book.productId}-${idx}`} className="flex gap-6 bg-white p-5 rounded-3xl shadow-sm border border-gray-100 items-center hover:shadow-lg transition-all group">
-                                            <div className="relative h-28 w-20 flex-shrink-0">
+                                            <a
+                                                href={book.fileUrl || "#"}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="relative h-28 w-20 flex-shrink-0"
+                                            >
                                                 <img src={book.imageUrl} className="h-full w-full rounded-xl object-cover shadow-md group-hover:-rotate-3 transition-transform" />
-                                            </div>
+                                            </a>
                                             <div className="flex-1 min-w-0">
                                                 <p className="text-[10px] text-emerald-500 font-black uppercase tracking-widest">{book.category}</p>
-                                                <h3 className="font-bold text-gray-900 truncate mt-1">{book.title}</h3>
+                                                <a
+                                                    href={book.fileUrl || "#"}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="hover:underline"
+                                                >
+                                                    <h3 className="font-bold text-gray-900 truncate mt-1">{book.title}</h3>
+                                                </a>
                                                 <p className="text-[10px] text-gray-400 mt-1 italic">Order: #{book.orderId.slice(-6)}</p>
                                                 <a
                                                     href={book.fileUrl || "#"}

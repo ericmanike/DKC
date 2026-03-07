@@ -26,7 +26,7 @@ export default function EditProductPage({ params }: PageProps) {
     const [productData, setProductData] = useState<any>(null);
     const [imageUrl, setImageUrl] = useState("");
 
-  
+
 
 
 
@@ -47,7 +47,7 @@ export default function EditProductPage({ params }: PageProps) {
             }
         };
         fetchProduct();
-      
+
     }, [id, router]);
 
 
@@ -122,7 +122,7 @@ export default function EditProductPage({ params }: PageProps) {
 
 
 
-//payment
+    //payment
 
 
 
@@ -218,7 +218,7 @@ export default function EditProductPage({ params }: PageProps) {
 
                     {productType === "book" ? (
                         <div className="space-y-2">
-                            <label className="text-sm font-bold text-gray-700 uppercase tracking-wider">PDF File URL</label>
+                            <label className="text-sm font-bold text-gray-700 uppercase tracking-wider">Link to Course/Book</label>
                             <input
                                 name="fileUrl"
                                 required={productType === "book"}
@@ -228,7 +228,7 @@ export default function EditProductPage({ params }: PageProps) {
                         </div>
                     ) : (
                         <div className="space-y-4 pt-4 border-t border-gray-50">
-                            <label className="text-sm font-bold text-gray-700 uppercase tracking-wider">Course URL</label>
+                            <label className="text-sm font-bold text-gray-700 uppercase tracking-wider">Link to Course/Book</label>
                             <input
                                 name="courseUrl"
                                 required={productType === "course"}

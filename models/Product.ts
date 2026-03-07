@@ -28,11 +28,11 @@ const ProductSchema = new Schema(
             type: String,
             required: [true, "Please provide a cover image URL"],
         },
-        // For Books: Link to the PDF
+        // For Books: Link to Course/Book
         fileUrl: {
             type: String,
         },
-        // For Courses: Link to the Course
+        // For Courses: Link to Course/Book
         courseUrl: {
             type: String,
         },

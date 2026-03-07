@@ -134,13 +134,13 @@ export default function NewProductPage() {
                             label="Cover Image"
                             value={imageUrl}
                             onChange={setImageUrl}
-                            
+
                         />
                     </div>
 
                     {productType === "book" ? (
                         <div className="space-y-2">
-                            <label className="text-sm font-bold text-gray-700">PDF File URL</label>
+                            <label className="text-sm font-bold text-gray-700">Link to Course/Book</label>
                             <input
                                 name="fileUrl"
                                 required={productType === "book"}
@@ -150,7 +150,7 @@ export default function NewProductPage() {
                         </div>
                     ) : (
                         <div className="space-y-2">
-                            <label className="text-sm font-bold text-gray-700">Course URL</label>
+                            <label className="text-sm font-bold text-gray-700">Link to Course/Book</label>
                             <input
                                 name="courseUrl"
                                 required={productType === "course"}
