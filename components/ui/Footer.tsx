@@ -1,6 +1,6 @@
 
 import Link from 'next/link';
-import { Facebook, Twitter, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { Facebook, Instagram, Mail, MapPin, Phone, Youtube } from 'lucide-react';
 
 export default function Footer() {
     return (
@@ -14,10 +14,9 @@ export default function Footer() {
                             Empowering minds through premium educational resources. Your one-stop destination for curated books and professional courses.
                         </p>
                         <div className="flex gap-4 pt-2">
+                            <a href="https://youtube.com/@insighthubgh?si=Ejve7VNABQP2yizn" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:text-white transition-colors"><Youtube className="h-5 w-5" /></a>
                             <a href="#" className="text-orange-500 hover:text-white transition-colors"><Facebook className="h-5 w-5" /></a>
-                            <a href="#" className="text-orange-500 hover:text-white transition-colors"><Twitter className="h-5 w-5" /></a>
                             <a href="#" className="text-orange-500 hover:text-white transition-colors"><Instagram className="h-5 w-5" /></a>
-                            <a href="#" className="text-orange-500 hover:text-white transition-colors"><Linkedin className="h-5 w-5" /></a>
                         </div>
                     </div>
 

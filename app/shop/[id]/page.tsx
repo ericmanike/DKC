@@ -38,23 +38,47 @@ export default async function ProductDetailsPage({ params }: ProductDetailsPageP
 
                 {/* Left Column: Image/Banner & Content */}
                 <div className="lg:col-span-8 space-y-12">
-                    {/* Banner */}
-                    <div className="relative aspect-video hover:border-2 hover:border-amber-700 rounded-3xl overflow-hidden  ">
+                    {/* Banner Card */}
+                    <div className="relative aspect-video group rounded-[2.5rem] overflow-hidden shadow-2xl ring-1 ring-black/5 transition-all duration-700 hover:shadow-blue-500/20">
                         <img
                             src={product.imageUrl}
                             alt={product.title}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                         />
-                        <div className="absolute top-0  group  inset-0 flex flex-col justify-end p-8 text-white">
-                            <div className="flex items-center gap-3 mb-4">
-                                <span className="bg-blue-600/90 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
-                                    {product.productType}
-                                </span>
-                                <span className="bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
-                                    {product.category}
-                                </span>
+
+                        {/* Premium Gradient Overlay */}
+                        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent opacity-85 transition-opacity duration-500 group-hover:opacity-95" />
+
+                        {/* Content Overlay */}
+                        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 space-y-4">
+                            <div className="flex flex-wrap items-center gap-3">
+                                <div className="flex items-center gap-2 bg-blue-600 px-4 py-2 rounded-full border border-blue-400/30 backdrop-blur-md shadow-xl">
+                                    <span className="text-white text-[10px] md:text-xs font-black uppercase tracking-widest flex items-center gap-2">
+                                        {isCourse ? <PlayCircle className="h-4 w-4 text-blue-200" /> : <BookOpen className="h-4 w-4 text-blue-200" />}
+                                        {product.productType}
+                                    </span>
+                                </div>
+                                <div className="bg-white/10 px-4 py-2 rounded-full border border-white/20 backdrop-blur-md">
+                                    <span className="text-white/90 text-[10px] md:text-xs font-bold uppercase tracking-widest italic">
+                                        {product.category}
+                                    </span>
+                                </div>
                             </div>
-                            <h1 className="text-2xl md:text-4xl bg-black/30 font-black rounded-2xl w-fit p-6">{product.title}</h1>
+
+                            <h1 className="text-xl md:text-2xl lg:text-3xl font-black text-white leading-[1.1] tracking-tighter drop-shadow-2xl max-w-xl">
+                                {product.title}
+                            </h1>
+
+                            <div className="flex flex-wrap items-center gap-4 text-white/70 text-[10px] md:text-xs font-bold uppercase tracking-widest">
+                                <div className="flex items-center gap-2 backdrop-blur-md bg-white/5 py-2 px-4 rounded-xl border border-white/10 group-hover:bg-white/10 transition-colors">
+                                    <Globe className="h-4 w-4 text-blue-400" />
+                                    <span>English Content</span>
+                                </div>
+                                <div className="flex items-center gap-2 backdrop-blur-md bg-white/5 py-2 px-4 rounded-xl border border-white/10 group-hover:bg-white/10 transition-colors">
+                                    <BadgeCheck className="h-4 w-4 text-orange-400" />
+                                    <span>Readily Available</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

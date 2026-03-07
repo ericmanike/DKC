@@ -5,7 +5,8 @@ import Product from "@/models/Product";
 import { ProductCard } from "@/components/ui/ProductCard";
 import TestimonialCarousel from "@/components/ui/testimonials";
 import RotatingText from "@/components/ui/RotatingText";
-
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
 async function getFeaturedProducts() {
   try {
@@ -26,6 +27,7 @@ const RotatingTextType: any = RotatingText;
 
 export default async function HomePage() {
   const featuredProducts = await getFeaturedProducts();
+  const session = await getServerSession(authOptions as any);
 
 
 
@@ -44,7 +46,7 @@ export default async function HomePage() {
           <div className="absolute inset-0 bg-black/60 bg-linear-to-t from-black/80 via-black/50 to-black/30" />
         </div>
 
-        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 text-center lg:pt-24">
           <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
             <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl drop-shadow-lg">
               Master Your Future with{" "}
@@ -68,14 +70,16 @@ export default async function HomePage() {
                 Browse Shop
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
-              <Link
-                href="/auth/register"
-                className="inline-flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20
-                 px-8 py-4 text-sm font-bold text-white backdrop-blur-sm ring-1 ring-white/50
-                   transition-all active:scale-95"
-              >
-                Join for Free
-              </Link>
+              {!session && (
+                <Link
+                  href="/auth/register"
+                  className="inline-flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20
+                   px-8 py-4 text-sm font-bold text-white backdrop-blur-sm ring-1 ring-white/50
+                     transition-all active:scale-95"
+                >
+                  Join for Free
+                </Link>
+              )}
             </div>
 
             <div className="flex items-center justify-center gap-2 mt-12 font-semibold text-lg text-orange-400 drop-shadow-sm">
@@ -116,7 +120,7 @@ export default async function HomePage() {
             <div className="h-14 w-14 rounded-xl bg-green-100 flex items-center justify-center mb-6">
               <Zap className="h-7 w-7 text-orange-600" />
             </div>
-            <h3 className="text-xl text-slate-900 font-bold mb-3">Instant Delivery</h3>
+            <h3 className="text-xl text-slate-900 font-bold mb-3">Readily Available</h3>
             <p className="text-zinc-800 leading-relaxed">
               Get immediate access to your digital files and course content right after purchase.
             </p>
@@ -160,24 +164,38 @@ export default async function HomePage() {
       </section>
 
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 justify-center items-center px-10">
-        <div className="  rounded h-10 flex justify-center ">
-          <div className=" border-double border-y-blue-600 border-2 border-x-orange-600  md:py-20 py-10 px-8   
-          text-black md:text-6xl text-2xl  rounded-2xl flex justify-center items-center  w-fit">
-            <RotatingTextType
-              texts={['Resetting minds', 'Creating Wealth ', 'Building Skills', 'Achieving Goals']}
-              rotationInterval={10000}
-              splitBy="character"
-              staggerDuration={0.05}
+      <section className="container mx-auto px-4 py-10 space-y-20">
+        {/* Rotating Text Card */}
+        <div className="max-w-4xl mx-auto w-full relative">
+          <div className="relative bg-white/80 backdrop-blur-xl border border-gray-100 rounded-3xl p-10 md:p-16 shadow-xl flex flex-col items-center justify-center text-center min-h-[300px]">
+            <div className="mb-6 inline-flex items-center px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 text-sm font-bold tracking-wide uppercase">
+              Digital Kingdom Chronicles
+            </div>
+            <div className="text-slate-900 md:text-6xl text-3xl font-black leading-tight tracking-tight">
+              <RotatingTextType
+                texts={['Resetting Minds', 'Creating Wealth', 'Building Skills', 'Achieving Goals']}
+                rotationInterval={3000}
+                splitBy="characters"
+                staggerDuration={0.025}
+                mainClassName="flex justify-center"
+                className="font-black"
+                transition={{ type: 'spring', damping: 20, stiffness: 200 }}
+                initial={{ y: '20%', opacity: 0, filter: 'blur(10px)' }}
+                animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
+                exit={{ y: '-20%', opacity: 0, filter: 'blur(10px)' }}
+              />
+            </div>
+            <p className="mt-8 text-gray-500 max-w-lg text-lg font-medium">
+              Transforming lives through structured education and premium digital resources.
+            </p>
+          </div>
+        </div>
 
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              initial={{ y: '100%', opacity: 0 }}
-              animate={{ y: '0%', opacity: 1 }}
-              exit={{ y: '100%', opacity: 0 }}
-
-              className="te font-semibold "
-            /> </div>
-        </div>  <TestimonialCarousel /> </div>
+        {/* Testimonial Carousel */}
+        <div className="relative max-w-5xl mx-auto w-full">
+          <TestimonialCarousel />
+        </div>
+      </section>
 
       {/* Call to action Section */}
       <section className="container mx-auto px-4">
@@ -189,14 +207,16 @@ export default async function HomePage() {
           <p className="text-blue-100 mb-10 max-w-2xl mx-auto text-lg relative z-10">
             Join thousands of learners worldwide and get access to high-quality educational content.
           </p>
-          <Link
-            href="/auth/register"
-            className="inline-flex items-center justify-center rounded-full bg-white 
-            px-10 py-4 text-sm font-bold text-blue-600 
-             hover:bg-gray-100 transition-all active:scale-95 relative z-10"
-          >
-            Get Started Now
-          </Link>
+          {!session && (
+            <Link
+              href="/auth/register"
+              className="inline-flex items-center justify-center rounded-full bg-white 
+              px-10 py-4 text-sm font-bold text-blue-600 
+               hover:bg-gray-100 transition-all active:scale-95 relative z-10"
+            >
+              Get Started Now
+            </Link>
+          )}
         </div>
       </section>
     </div>
