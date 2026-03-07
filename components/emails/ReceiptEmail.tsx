@@ -55,7 +55,7 @@ export const ReceiptEmail = ({ userName, items, total, orderId }: ReceiptEmailPr
                     </Section>
 
                     <Section style={buttonContainer}>
-                        <Link style={button} href="https://dkc-books.vercel.app/dashboard">
+                        <Link style={button} href="https://dkcbooksandcourses.com/dashboard">
                             Access Your Content
                         </Link>
                     </Section>

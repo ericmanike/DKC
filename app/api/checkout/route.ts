@@ -6,6 +6,7 @@ import Order from "@/models/Order";
 import Product from "@/models/Product";
 import { sendEmail } from "@/lib/resend";
 import ReceiptEmail from "@/components/emails/ReceiptEmail";
+import AdminOrderNotificationEmail from "@/components/emails/AdminOrderNotificationEmail";
 import React from "react";
 
 export async function POST(req: Request) {
@@ -19,12 +20,12 @@ export async function POST(req: Request) {
 
         const { productId, reference, phoneNumber, location } = await req.json();
 
-        console.log("checkout details",{ productId, reference, phoneNumber, location });
+        console.log("checkout details", { productId, reference, phoneNumber, location });
 
         if (!productId || !reference) {
-         console.log("Product ID and reference required");
+            console.log("Product ID and reference required");
             return NextResponse.json({ message: "Product ID and reference required" }, { status: 400 });
-       
+
         }
 
         const verifyResponse = await fetch(`https://api.paystack.co/transaction/verify/${reference}`, {
@@ -34,12 +35,12 @@ export async function POST(req: Request) {
         });
 
         const data = await verifyResponse.json();
-  
 
-        if (!verifyResponse.ok || data.data.status !== 'success' ) {
+
+        if (!verifyResponse.ok || data.data.status !== 'success') {
             console.log("Payment verification failed");
             return NextResponse.json({ message: "Payment verification failed" }, { status: 400 });
-           
+
         }
 
         await connectToDatabase();
@@ -50,7 +51,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ message: "Product not found" }, { status: 404 });
         }
 
-      
+
 
 
         // Create the order
@@ -70,8 +71,27 @@ export async function POST(req: Request) {
         });
         console.log("Order created", order);
 
-        // Send Receipt Email
-       const emailResponse =  await sendEmail({
+        // Send Notification Email to Owner
+        await sendEmail({
+            to: 'manikeeric@gmail.com',
+            subject: `🚨 New Order Received #${order._id.toString().slice(-6)}`,
+            component: React.createElement(AdminOrderNotificationEmail, {
+                userName: session.user.name || "Customer",
+                userEmail: session.user.email,
+                phoneNumber: phoneNumber,
+                location: location,
+                items: [{
+                    title: product.title,
+                    price: product.price,
+                    productType: product.productType
+                }],
+                total: product.price,
+                orderId: order._id.toString()
+            })
+        });
+
+        // Send Receipt Email to Customer
+        await sendEmail({
             to: session.user.email,
             subject: `Receipt for your order #${order._id.toString().slice(-6)}`,
             component: React.createElement(ReceiptEmail, {
@@ -86,7 +106,6 @@ export async function POST(req: Request) {
             })
         });
 
-        console.log("Email response", emailResponse);
 
         return NextResponse.json({ message: "Purchase successful", orderId: order._id }, { status: 201 });
     } catch (error) {

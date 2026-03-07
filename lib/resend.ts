@@ -11,7 +11,7 @@ export const resend = new Resend(resendSecret);
 export const sendEmail = async ({ to, subject, component }: { to: string, subject: string, component: React.ReactElement }) => {
     try {
         const { data, error } = await resend.emails.send({
-            from: 'DKC BOOKS info@dkcbooksandcourses.com', // Change to your verified domain in production
+            from: 'DKC BOOKS <info@dkcbooksandcourses.com>', // Change to your verified domain in production
             to,
             subject,
             react: component,
