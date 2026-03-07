@@ -78,8 +78,8 @@ const Carousel = ({ items, autoPlayInterval = 5000 }: CarouselProps) => {
             key={index}
             onClick={() => goTo(index)}
             className={`transition-all duration-300 rounded-full ${index === current
-                ? 'w-8 h-3 bg-blue-600'
-                : 'w-3 h-3 bg-gray-300 hover:bg-gray-400'
+              ? 'w-8 h-3 bg-blue-600'
+              : 'w-3 h-3 bg-gray-300 hover:bg-gray-400'
               }`}
             aria-label={`Go to slide ${index + 1}`}
           />
