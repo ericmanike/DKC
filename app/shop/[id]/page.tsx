@@ -4,9 +4,37 @@ import { formatPrice } from "@/lib/utils";
 import { BadgeCheck, BookOpen, Clock, Globe, GraduationCap, PlayCircle, Share2, ShoppingCart } from "lucide-react";
 import { notFound } from "next/navigation";
 import { PaymentBtn } from "@/components/paymentBtn";
+import type { Metadata } from 'next';
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
+export async function generateMetadata({ params }: ProductDetailsPageProps): Promise<Metadata> {
+    const { id } = await params;
+    await connectToDatabase();
+    const product = await Product.findById(id).lean() as any;
+
+    if (!product) return {};
+
+    return {
+        title: `${product.title} - DKC Books & Courses`,
+        description: product.description.slice(0, 160),
+        openGraph: {
+            title: `${product.title} - DKC Books & Courses`,
+            description: product.description.slice(0, 160),
+            url: `https://dkcbooksandcourses.com/shop/${id}`,
+            images: [
+                {
+                    url: product.imageUrl,
+                    width: 1200,
+                    height: 630,
+                    alt: product.title,
+                },
+            ],
+            type: 'website',
+        },
+    };
+}
 
 interface ProductDetailsPageProps {
     params: Promise<{ id: string }>;

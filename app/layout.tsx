@@ -23,14 +23,31 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: "DKC Books - Premium Books & Courses",
-  description: "Browse and purchase top-quality books and courses.",
+  description: "Browse and purchase top-quality technical books and comprehensive expert courses.",
+  metadataBase: new URL('https://dkcbooksandcourses.com'),
 
+  openGraph: {
+    title: 'DKC Books - Premium Books & Courses',
+    description: 'Browse and purchase top-quality technical books and comprehensive expert courses.',
+    url: 'https://dkcbooksandcourses.com',
+    siteName: 'DKC Books',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'DKC Books Preview',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
 
   twitter: {
     card: 'summary_large_image',
-    title: 'Home - DKC Books - Premium Books & Courses',
-    description: 'Browse and purchase top-quality books and courses.',
-    images: ['https://dkcbooks.com/og-image.jpg'],
+    title: 'DKC Books - Premium Books & Courses',
+    description: 'Browse and purchase top-quality technical books and comprehensive expert courses.',
+    images: ['https://dkcbooksandcourses.com/og-image.jpg'],
   },
 
   robots: {
@@ -43,19 +60,11 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-
-
   },
 
   alternates: {
-    canonical: 'https://dkcbooks.com/',
+    canonical: 'https://dkcbooksandcourses.com/',
   },
-
-
-
-
-
-
 };
 
 export default function RootLayout({

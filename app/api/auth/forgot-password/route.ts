@@ -64,9 +64,9 @@ export async function POST(req: Request) {
 
         // Send email via Resend
         const emailResult = await resend.emails.send({
-            from: 'info@nyamekyeloans.com',
+            from: 'DKC BOOKS support@dkcbooksandcourses.com',
             to: email,
-            subject: 'Password Reset - RiskWhiz',
+            subject: 'Password Reset - DKC BOOKS',
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
                     <h2 style="color: #2563eb;">Password Reset Request</h2>

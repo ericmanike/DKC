@@ -2,6 +2,18 @@ import { ProductCard } from "@/components/ui/ProductCard";
 import connectToDatabase from "@/lib/db";
 import Product from "@/models/Product";
 import { Filter, Search } from "lucide-react";
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Shop - DKC Books & Courses',
+    description: 'Browse our full catalog of premium educational books and expert-led video courses.',
+    openGraph: {
+        title: 'Shop - DKC Books & Courses',
+        description: 'Browse our full catalog of premium educational books and expert-led video courses.',
+        url: 'https://dkcbooksandcourses.com/shop',
+        images: ['/og-image.jpg'],
+    }
+};
 
 interface ShopPageProps {
     searchParams: Promise<{

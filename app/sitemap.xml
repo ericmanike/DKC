@@ -1,41 +1,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage -->
   <url>
-    <loc>https://dkcbooks.com/</loc>
-    <lastmod>2026-01-11T14:00:00Z</lastmod>
+    <loc>https://dkcbooksandcourses.com/</loc>
+    <lastmod>2026-03-07T16:47:00Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
- 
-
-  <!-- login -->
+  <!-- Shop Catalog -->
   <url>
-    <loc>https://dkcbooks.com/auth/login</loc>
-    <lastmod>2026-01-11T14:00:00Z</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://dkcbooksandcourses.com/shop</loc>
+    <lastmod>2026-03-07T16:47:00Z</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!--  registration -->
+  <!-- Login -->
   <url>
-    <loc>https://dkcbooks.com/auth/register</loc>
-    <lastmod>2026-01-11T14:00:00Z</lastmod>
+    <loc>https://dkcbooksandcourses.com/auth/login</loc>
+    <lastmod>2026-03-07T16:47:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Registration -->
+  <url>
+    <loc>https://dkcbooksandcourses.com/auth/register</loc>
+    <lastmod>2026-03-07T16:47:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  
-
   <!-- Dashboard -->
   <url>
-    <loc>https://dkcbooks.com/dashboard</loc>
-    <lastmod>2026-01-11T14:00:00Z</lastmod>
+    <loc>https://dkcbooksandcourses.com/dashboard</loc>
+    <lastmod>2026-03-07T16:47:00Z</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
-
-
-
-
 </urlset>
