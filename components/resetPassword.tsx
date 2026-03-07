@@ -33,7 +33,7 @@ export default function ResetPasswordForm() {
   const resetPassword = async (newPassword: string) => {
     setIsSending(true);
     if (!token || !email) {
-
+      alert('Token and email are required')
       setIsSending(false);
       return;
     }
@@ -118,6 +118,7 @@ export default function ResetPasswordForm() {
 
               <button
                 type="submit"
+
                 disabled={!dirty || !isValid || isSubmitting}
                 className={` ${!dirty || !isValid ? 'bg-gray-600 cursor-not-allowed ' : 'bg-blue-500 cursor-pointer'} text-white p-2 rounded transition-colors`}
               >
