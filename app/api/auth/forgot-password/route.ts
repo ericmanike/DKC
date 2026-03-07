@@ -64,7 +64,7 @@ export async function POST(req: Request) {
 
         // Send email via Resend
         const emailResult = await resend.emails.send({
-            from: 'DKC BOOKS support@dkcbooksandcourses.com',
+            from: 'DKC BOOKS <info@dkcbooksandcourses.com>',
             to: email,
             subject: 'Password Reset - DKC BOOKS',
             html: `
